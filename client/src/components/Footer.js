@@ -6,52 +6,109 @@ class Footer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: false
+      status: false,
+      duration: 0,
+      currentTime: 0,
+      timeElapsed: '0:00',
+      timeRemaining: null
     }
   }
 
-  previousSong = () => {
+  componentWillMount() {
 
   }
 
+  componentWillReceiveProps(newProps) {
+    clearInterval(this.timer);
+
+    this.setState({
+      status: false,
+      duration: 0,
+      currentTime: 0,
+      timeElapsed: '0:00',
+      timeRemaining: null
+    });
+
+    // this.setProgressBar();
+  }
+
   playSong = () => {
-    // let status = this.state.status;
     this.setState({status: true});
+    this.getSeconds()
+
+    let currentTime = this.state.currentTime;
+
+    this.timer = setInterval(() => {
+        currentTime++;
+        this.setState({currentTime: currentTime})
+        this.timeElapsed();
+        this.timeRemaining();
+    }, 1000);
+
     this.audio.play();
   }
 
   pauseSong = () => {
     this.setState({status: false});
+    clearInterval(this.timer);
     this.audio.pause();
   }
 
-  nextSong = () => {
+  previousSong = () => {
+    console.log('Previous Song');
+  }
 
+  nextSong = () => {
+    console.log('Next Song');
   }
 
   setShuffle = () => {
-
+    console.log('Set Shuffle');
   }
 
   setRepeat = () => {
-
+    console.log('Set Repeat');
   }
 
   setMute = () => {
-
+    console.log('Set Mute');
   }
 
-  timeElapsed = (time) => {
-
+  timeElapsed = () => {
+    let timeElapsed = this.formatTime(this.state.currentTime);
+    this.setState({timeElapsed: timeElapsed});
   }
 
-  timeRemaining = (time) => {
+  timeRemaining = () => {
+    let timeRemaining = this.formatTime(this.state.duration - this.state.currentTime);
+    this.setState({timeRemaining: timeRemaining});
+  }
 
+  getSeconds = (duration) => {
+    let time = this.props.song.duration.split(':');
+    let minutes = Number(time[0]);
+    let seconds = Number(time[1]);
+    let totalSeconds = (minutes * 60) + seconds;
+    this.setState({duration: totalSeconds});
+  }
+
+  formatTime = (duration) => {
+    // let time = Math.round(seconds);
+    let minutes = Math.floor(duration / 60);
+    let seconds = duration - (minutes * 60);
+    let zero = seconds < 10 ? '0' : '';
+    return `${minutes}:${zero}${seconds}`;
+  }
+
+  setProgressBar = () => {
+    let percentage = (this.state.currentTime / this.state.duration) * 100;
+    return {width: `${percentage}%`};
   }
 
   render() {
     const { song } = this.props;
     const playStyle =  {display: 'none'};
+    let progressBarStyle = this.setProgressBar();
 
     return (
       <footer>
@@ -79,13 +136,13 @@ class Footer extends Component {
                 <i className="fas fa-redo-alt" title="repeat" onClick={this.setRepeat}></i>
               </div>
               <div className="playback-bar">
-                <span className="progress-time current">0:00</span>
+                <span className="progress-time current">{this.state.timeElapsed}</span>
                 <div className="progress-bar">
                   <div className="progress-bar-bg">
-                    <div className="progress"></div>
+                    <div className="progress" style={progressBarStyle}></div>
                   </div>
                 </div>
-                <span className="progress-time remaining">{song.duration}</span>
+                <span className="progress-time remaining">{this.state.timeRemaining === null ? this.props.song.duration : this.state.timeRemaining}</span>
               </div>
             </div>
           </div>
