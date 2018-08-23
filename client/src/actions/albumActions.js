@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { GET_ALBUM, GET_ERRORS } from './types';
 
-export const getAlbum = (album) => dispatch => {
+// Get album songs
+export const getAlbum = (album, artist, artwork) => dispatch => {
   axios.get(`/api/album/${album}`)
     .then(res =>
       dispatch({
         type: GET_ALBUM,
-        album: album,
+        albumInfo: {album, artist, artwork},
         payload: res.data
       })
     )
@@ -17,3 +18,20 @@ export const getAlbum = (album) => dispatch => {
       })
     );
 }
+
+// Get album info
+// export const getAlbumInfo = (album, artist) => dispatch => {
+//   axios.get(`/api/album/${album}`)
+//     .then(res =>
+//       dispatch({
+//         type: GET_ALBUM_INFO,
+//         payload: res.data
+//       })
+//     )
+//     .catch(err =>
+//       dispatch({
+//         type: GET_ERRORS,
+//         payload: err.response.data
+//       })
+//     );
+// }

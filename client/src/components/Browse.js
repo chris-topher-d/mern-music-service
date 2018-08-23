@@ -10,9 +10,9 @@ class Browse extends Component {
     this.props.getSongs();
   }
 
-  onClick = (songId, album) => {
+  onClick = (songId, album, artist, artwork) => {
     this.props.getSong(songId);
-    this.props.getAlbum(album);
+    this.props.getAlbum(album, artist, artwork);
   }
 
   render() {
@@ -20,11 +20,11 @@ class Browse extends Component {
     // console.log(songs);
 
     let songList = songs.map(song => (
-      <div className='grid-item' key={song._id}>
+      <div className='song' key={song._id}>
         <Link to='/album'>
-          <span role='link' tabIndex='0' onClick={() => {this.onClick(song._id, song.album)}}>
+          <span role='link' tabIndex='0' onClick={() => {this.onClick(song._id, song.album, song.artist, song.artwork)}}>
             <img src={song.artwork} alt='album cover'/>
-            <div className='grid-item-info'>
+            <div className='song-title'>
               <p>{song.title}</p>
             </div>
           </span>
@@ -33,8 +33,10 @@ class Browse extends Component {
     ));
 
     return (
-      <div className='grid-container'>
-        {songList}
+      <div className='browse-container'>
+        <div className='browse-songs'>
+          {songList}
+        </div>
       </div>
     );
   }

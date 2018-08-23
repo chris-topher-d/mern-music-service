@@ -1,7 +1,7 @@
 import { GET_ALBUM } from '../actions/types';
 
 const initialState = {
-  album: '',
+  albumInfo: {},
   songs: []
 };
 
@@ -9,7 +9,7 @@ export default function(state = initialState, action) {
   switch(action.type) {
     case GET_ALBUM:
       return {
-        album: action.album,
+        albumInfo: action.albumInfo,
         songs: action.payload
       };
 

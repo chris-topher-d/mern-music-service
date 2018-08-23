@@ -2,7 +2,8 @@ import { GET_SONGS, GET_SONG } from '../actions/types';
 
 const initialState = {
   songs: [],
-  song: {}
+  song: {},
+  playStatus: false
 };
 
 export default function(state = initialState, action) {
