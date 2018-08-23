@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getSongs, getSong } from '../actions/songActions';
 import { getAlbum } from '../actions/albumActions';
+import { Link } from 'react-router-dom';
 
 class Browse extends Component {
   componentWillMount() {
@@ -20,12 +21,14 @@ class Browse extends Component {
 
     let songList = songs.map(song => (
       <div className='grid-item' key={song._id}>
-        <span role='link' tabIndex='0' onClick={() => {this.onClick(song._id, song.album)}}>
-          <img src={song.artwork} alt='album cover'/>
-          <div className='grid-item-info'>
-            <p>{song.title}</p>
-          </div>
-        </span>
+        <Link to='/album'>
+          <span role='link' tabIndex='0' onClick={() => {this.onClick(song._id, song.album)}}>
+            <img src={song.artwork} alt='album cover'/>
+            <div className='grid-item-info'>
+              <p>{song.title}</p>
+            </div>
+          </span>
+        </Link>
       </div>
     ));
 

@@ -4,16 +4,20 @@
   "description": "MERN stack music service",
   "main": "server.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
     "server": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Christopher Dennis",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "mongoose": "^5.2.9"
   },
   "devDependencies": {
+    "concurrently": "^3.6.1",
     "nodemon": "^1.18.3"
   }
 }

@@ -19,3 +19,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+src/.sass-cache/
+src/sass/main.css
+src/sass/main.css.map

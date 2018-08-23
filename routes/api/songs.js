@@ -21,6 +21,7 @@ router.post('/', (req, res) => {
     title: req.body.title,
     artist: req.body.artist,
     album: req.body.album,
+    artwork: req.body.artwork,
     genre: req.body.genre,
     duration: req.body.duration,
     path: req.body.path,
@@ -28,6 +29,15 @@ router.post('/', (req, res) => {
   });
 
   newSong.save().then(song => res.json(song));
+});
+
+// @route  GET api/songs
+// @desc   Get song by ID
+// @access Public
+router.get('/:id', (req, res) => {
+  Song.findById(req.params.id)
+    .then(song => res.json(song))
+    .catch(err => res.status(404).json({nosong: 'No song found'}));
 });
 
 module.exports = router;

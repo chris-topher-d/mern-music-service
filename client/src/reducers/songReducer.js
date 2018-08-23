@@ -1,9 +1,23 @@
-import { GET_SONGS } from '../actions/types';
+import { GET_SONGS, GET_SONG } from '../actions/types';
 
-export default function(state = [], action) {
+const initialState = {
+  songs: [],
+  song: {}
+};
+
+export default function(state = initialState, action) {
   switch(action.type) {
     case GET_SONGS:
-      return action.payload;
+      return {
+        ...state,
+        songs: action.payload
+      };
+
+    case GET_SONG:
+      return {
+        ...state,
+        song: action.payload
+      };
 
     default:
       return state;

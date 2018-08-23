@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const songs = require('./routes/api/songs');
+const album = require('./routes/api/album');
 
 const app = express();
 
@@ -21,6 +22,7 @@ mongoose
 
 // Use routes
 app.use('/api/songs', songs);
+app.use('/api/album', album)
 
 const port = process.env.PORT || 5000;
 

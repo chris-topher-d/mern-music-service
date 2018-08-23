@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Footer extends Component {
   constructor(props) {
@@ -37,17 +39,19 @@ class Footer extends Component {
   }
 
   render() {
+    const { song } = this.props;
+
     return (
       <footer>
         <div className="controller-bar">
           <div className="now-playing">
             <div className="content">
               <span className="album">
-                <img src="" alt="album cover" className="album-cover" role="link" tabIndex="0"/>
+                <img src={song.artwork} alt="album cover" className="album-cover" role="link" tabIndex="0"/>
               </span>
               <div className="track-info">
-                <span className="track" role="link" tabIndex="0"></span>
-                <span className="artist" role="link" tabIndex="0"></span>
+                <span className="track" role="link" tabIndex="0">{song.title}</span>
+                <span className="artist" role="link" tabIndex="0">{song.artist}</span>
               </div>
             </div>
           </div>
@@ -89,4 +93,12 @@ class Footer extends Component {
   }
 }
 
-export default Footer;
+Footer.propTypes = {
+  song: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  song: state.songs.song
+});
+
+export default connect(mapStateToProps)(Footer);
