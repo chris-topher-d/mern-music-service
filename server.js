@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const songs = require('./routes/api/songs');
 const album = require('./routes/api/album');
+const artist = require('./routes/api/artist');
 
 const app = express();
 
@@ -23,6 +24,7 @@ mongoose
 // Use routes
 app.use('/api/songs', songs);
 app.use('/api/album', album)
+app.use('/api/artist', artist);
 
 const port = process.env.PORT || 5000;
 
