@@ -27,11 +27,14 @@
         padding-bottom: 30px;
 
         h2 {
-          margin: 40px 0 20px !important;
+          color: #fff;
+          background: #282828;
+          margin: 40px 0 20px;
+          padding: 5px 15px;
         }
 
         .no-results {
-          // padding: 0 0 0 15px;
+          padding: 0 15px;
         }
 
         .track-list-row {
@@ -42,7 +45,7 @@
           padding: 10px 15px;
 
           &:hover {
-            background: #2a2a2a;
+            background: #f2f2f2;
 
             .track-count .track-number {
               visibility: hidden;
@@ -116,38 +119,28 @@
     .artist-results {
       width: 100%;
       padding-bottom: 30px;
-      // border-top: 1px solid #909090;
-      // border-bottom: 1px solid #909090;
       letter-spacing: 1px;
 
       .artist {
         width: 100%;
-        // display: flex;
-        // flex-wrap: wrap;
 
-        .artist-title {
-          width: 100%;
-          background-color: #909090;
+        h2 {
+          color: #fff;
+          background: #282828;
           margin: 40px 0 20px;
-          border-bottom: 1px solid #909090;
-
-          h2 {
-            margin: 40px 0 20px;
-          }
+          padding: 5px 15px;
         }
 
-
-
         .no-results {
-          // padding: 0 0 0 15px;
+          padding: 0 15px;
         }
 
         .artist-result-row {
-          // padding: 15px 0;
+          margin: 10px 15px;
           cursor: pointer;
 
           &:hover {
-            background: #282828;
+            background: #f2f2f2;
           }
 
           .artist-info {
@@ -172,22 +165,25 @@
       letter-spacing: 1px;
 
       h2 {
+        color: #fff;
+        background: #282828;
         margin: 40px 0 20px;
+        padding: 5px 15px;
+      }
+
+      .no-results {
+        padding: 0 15px;
       }
 
       .albums {
         display: flex;
         flex-wrap: wrap;
 
-        .no-results {
-          padding: 0 0 0 15px;
-        }
-
         .grid-item {
           display: inline-block;
           max-width: 200px;
           min-width: 150px;
-          padding: 15px;
+          padding: 10px 15px 20px;
 
           span {
             color: #000;
