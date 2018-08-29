@@ -6,6 +6,8 @@ import store from './store';
 import Header from './components/Header';
 import Browse from './components/Browse';
 import Album from './components/Album';
+import Artist from './components/Artist';
+import Search from './components/SearchResults';
 import Footer from './components/Footer';
 import './sass/main.css';
 
@@ -19,6 +21,8 @@ class App extends Component {
             <Switch>
               <Route exact path={'/'} component={Browse} />
               <Route exact path={'/album'} component={Album} />
+              <Route exact path={'/artist'} component={Artist} />
+              <Route exact patch={'/search'} component={Search} />
             </Switch>
             <Footer />
           </div>
