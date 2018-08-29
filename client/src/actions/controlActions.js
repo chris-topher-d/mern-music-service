@@ -1,4 +1,4 @@
-import { PLAY_SONG, UPDATE_INDEX, UPDATE_CURRENT_TIME, SET_PLAY } from './types';
+import { PLAY_SONG, UPDATE_INDEX, SET_PLAY } from './types';
 
 export const playSong = index => dispatch => {
   return (
@@ -15,15 +15,6 @@ export const updateIndex = index => dispatch => {
     dispatch({
       type: UPDATE_INDEX,
       payload: index
-    })
-  );
-}
-
-export const updateCurrentTime = seconds => dispatch => {
-  return (
-    dispatch({
-      type: UPDATE_CURRENT_TIME,
-      payload: seconds
     })
   );
 }
