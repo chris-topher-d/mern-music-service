@@ -1,9 +1,8 @@
-import { PLAY_SONG, UPDATE_INDEX, UPDATE_CURRENT_TIME, SET_PLAY } from '../actions/types';
+import { PLAY_SONG, UPDATE_INDEX, SET_PLAY } from '../actions/types';
 
 const initialState = {
   play: false,
-  index: 0,
-  currentTime: 0
+  index: 0
 };
 
 export default function(state = initialState, action) {
@@ -18,12 +17,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         index: action.payload
-      };
-
-    case UPDATE_CURRENT_TIME:
-      return {
-        ...state,
-        currentTime: action.payload
       };
 
     case SET_PLAY:
