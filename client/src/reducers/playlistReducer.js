@@ -2,7 +2,7 @@ import { LOAD_PLAYLIST, GET_SONGS } from '../actions/types';
 
 const initialState = {
   tracks: [],
-  loaded: false
+  loaded: null
 };
 
 export default function(state = initialState, action) {
@@ -10,7 +10,7 @@ export default function(state = initialState, action) {
     case LOAD_PLAYLIST:
       return {
         ...state,
-        loaded: true
+        loaded: action.content
       };
 
     // On initial site load, fill current paylist with songs
@@ -18,7 +18,7 @@ export default function(state = initialState, action) {
       if (state.tracks.length === 0) {
         return {
           tracks: action.payload,
-          loaded: true
+          loaded: 'songs'
         };
       }
 
