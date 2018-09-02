@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
+import { searchFor } from '../actions/actions';
 
 class Header extends Component {
   constructor(props) {
@@ -15,12 +18,16 @@ class Header extends Component {
 
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      this.search();
+      this.search(this.state.searchValue);
     }
   }
 
-  search = () => {
-    this.setState({searchValue: ''});
+  search = item => {
+    if (this.state.searchValue !== '') {
+      this.props.searchFor(item);
+      this.setState({searchValue: ''});
+      this.props.history.push('/search');
+    }
   }
 
   render() {
@@ -33,19 +40,17 @@ class Header extends Component {
               <h3>Songify</h3>
             </div>
           </Link>
-          <div className="search">
-            <span className="search-container">
-              <input
-                type="text"
-                className="search-input"
-                value={this.state.searchValue}
-                placeholder="Search"
-                onChange={this.handleChange}
-                onKeyPress={this.handleKeyPress}
-              />
-              <i className="fas fa-search" onClick={this.search}></i>
-            </span>
-          </div>
+          <span className="search">
+            <input
+              type="text"
+              className="search-input"
+              value={this.state.searchValue}
+              placeholder="Search"
+              onChange={this.handleChange}
+              onKeyPress={this.handleKeyPress}
+            />
+            <i className="fas fa-search" onClick={() => {this.search(this.state.searchValue)}}></i>
+          </span>
           <div className="nav-items">
             <div className="nav-item">
               <Link to='/'>
@@ -62,4 +67,12 @@ class Header extends Component {
   }
 }
 
-export default Header;
+Header.propTypes = {
+  playlists: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  playlists: state.playlists
+});
+
+export default connect(mapStateToProps, { searchFor })(withRouter(Header));
