@@ -159,7 +159,6 @@ class Footer extends Component {
     this.audio.muted = muted;
     this.setState({muted: muted});
 
-
     if (muted) this.currentVolume.style.height = '0%';
     if (!muted) this.currentVolume.style.height = `${this.audio.volume * 100}%`;
   }
@@ -195,14 +194,14 @@ class Footer extends Component {
   }
 
   setVolume = (e) => {
-    console.log(e.target.clientY);
-    let offset, percent;
-    if (e.nativeEvent.offsetY < 165 && e.nativeEvent.offsetY > 13) {
-      offset = this.volumeBar.clientHeight - e.nativeEvent.offsetY + 14;
+    let offset, percent = 0;
+    if (e.nativeEvent.layerY < 165 && e.nativeEvent.layerY > 13) {
+
+      offset = this.volumeBar.clientHeight - e.nativeEvent.layerY + 14;
       percent = (offset / this.volumeBar.clientHeight) * 100;
-    } else if (e.nativeEvent.offsetY < 14) {
+    } else if (e.nativeEvent.layerY < 15) {
       percent = 100;
-    } else if (e.nativeEvent.offsetY > 164) {
+    } else if (e.nativeEvent.layerY > 165) {
       percent = 0;
     }
     this.audio.volume = percent / 100;
