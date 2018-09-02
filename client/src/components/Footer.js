@@ -158,6 +158,10 @@ class Footer extends Component {
     let muted = !this.state.muted;
     this.audio.muted = muted;
     this.setState({muted: muted});
+
+
+    if (muted) this.currentVolume.style.height = '0%';
+    if (!muted) this.currentVolume.style.height = `${this.audio.volume * 100}%`;
   }
 
   getSeconds = (songDuration) => {
@@ -203,6 +207,9 @@ class Footer extends Component {
     }
     this.audio.volume = percent / 100;
     this.currentVolume.style.height = `${percent}%`;
+
+    // If volume is currently muted, unmute
+    if (this.state.muted) this.setMute();
   }
 
   getArtist = artist => {
@@ -232,15 +239,18 @@ class Footer extends Component {
         <div className='controller-bar'>
           <div className='now-playing'>
             <div className='content'>
-              <span className='album'>
+              {/* <span className='album'> */}
+              <Link to='/album'>
                 <img
                   src={this.props.currentlyPlaying.tracks.length > 0 ? this.props.currentlyPlaying.tracks[this.props.controls.index].artwork : null}
                   alt='album cover'
                   className='album-cover'
-                   role='link'
-                   tabIndex='0'
+                  role='link'
+                  tabIndex='0'
+                  onClick={() => {this.getAlbum(this.props.currentlyPlaying.tracks[this.props.controls.index].album)}}
                  />
-              </span>
+               </Link>
+              {/* </span> */}
               <div className='track-info'>
                 <Link to ='/album'>
                   <span
