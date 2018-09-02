@@ -5,7 +5,6 @@ footer {
   width: 100%;
   position: fixed;
   bottom: 0;
-  min-width: 650px;
   border-top: 1px solid #909090;
 
   .controller-bar {
@@ -20,6 +19,7 @@ footer {
     .now-playing {
       width: 20%;
       min-width: 200px;
+      margin-left: 10px;
 
       .content {
         display: flex;
@@ -117,16 +117,21 @@ footer {
     }
 
     .volume-control {
+      width: 5%;
+      display: inline-flex;
+      justify-content: flex-end;
+      align-items: center;
 
       .volume-bar {
         height: 60px;
-        display: inline-flex;
+        display: flex;
         justify-content: flex-end;
         align-items: center;
         padding-left: 15px;
+        margin-right: 10px;
 
         &:hover > .volume-progress-bar {
-          display: inline-flex;
+          display: flex;
         }
 
         .fa-volume-up {
@@ -138,6 +143,7 @@ footer {
         .fa-volume-off {
           font-size: 20px;
           color: #282828;
+          padding-right: 7px;
           cursor: pointer;
         }
 
@@ -145,15 +151,17 @@ footer {
           position: absolute;
           bottom: 50px;
           height: 180px;
+          width: 35px;
           display: none;
           justify-content: center;
-          padding: 15px;
+          align-items: center;
+          margin-left: 5px;
           background: #f2f2f2;
           border: 1px solid #909090;
           cursor: pointer;
 
           &:hover {
-            display: inline-flex;
+            display: flex;
           }
 
           .volume-progress-bar-bg {
@@ -162,17 +170,16 @@ footer {
             flex-direction: column;
             justify-content: flex-end;
             height: 150px;
-            width: 5px;
-            border-radius: 5px;
+            width: 1px;
+            // border-radius: 5px;
 
             &:hover .volume-progress-bar{
-              display: inline-flex;
+              display: flex;
             }
 
             .volume-progress {
-              background: #909090;
-              width: 5px;
-              border-radius: 5px;
+              background: orange;
+              width: 1px;
             }
           }
         }
