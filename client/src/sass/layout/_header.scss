@@ -6,7 +6,6 @@ header {
   width: 100%;
   height: 60px;
   background: #282828;
-  border-bottom: 1px solid #46414C;
 
   .nav-bar {
     display: flex;
@@ -29,39 +28,41 @@ header {
       }
 
       h3 {
+        text-transform: uppercase;
         color: orange;
       }
     }
 
     .search {
+      display: flex;
+      align-items: center;
+      width: 40%;
+      background: #141414;
+      border-radius: 100px;
+      padding: 5px 10px;
 
-      .search-container {
-        display: flex;
-        align-items: center;
+      .search-input {
         width: 100%;
-        background: #141414;
-        border-radius: 100px;
-        padding: 5px 10px;
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-weight: 300;
+        font-size: 15px;
+        letter-spacing: 1px;
+        padding: 0 5px;
 
-        .search-input {
-          width: 100%;
-          background: transparent;
-          border: none;
-          color: #fff;
-          font-weight: 300;
-          font-size: 15px;
-          letter-spacing: 1px;
-          padding: 0 5px;
-
-          &:focus {
-            outline: none;
-          }
+        &:focus {
+          outline: none;
         }
+      }
 
-        .fa-search {
-          padding: 0 5px;
-          font-size: 15px;
-          color: #909090;
+      .fa-search {
+        padding: 0 5px;
+        font-size: 15px;
+        color: #909090;
+
+        &:hover {
+          cursor: pointer;
         }
       }
     }
