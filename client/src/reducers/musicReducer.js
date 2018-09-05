@@ -1,13 +1,19 @@
-import { GET_SONGS, GET_SONG, GET_ALBUM } from '../actions/types';
+import { GET_SONGS, GET_ALBUM, GET_ARTIST, SEARCH_FOR_ITEM } from '../actions/types';
 
 const initialState = {
   songs: {
-    tracks: [],
-    song: {},
+    tracks: []
   },
   album: {
     tracks: [],
     albumInfo: {}
+  },
+  artist: {
+    tracks: []
+  },
+  search: {
+    tracks: [],
+    searchTerm: ''
   }
 };
 
@@ -22,21 +28,29 @@ export default function(state = initialState, action) {
         }
       };
 
-    case GET_SONG:
-      return {
-        ...state,
-        songs: {
-          ...state.songs,
-          song: action.payload
-        }
-      };
-
     case GET_ALBUM:
       return {
         ...state,
         album: {
           tracks: action.payload,
           albumInfo: action.albumInfo
+        }
+      };
+
+    case GET_ARTIST:
+      return {
+        ...state,
+        artist: {
+          tracks: action.payload
+        }
+      };
+
+    case SEARCH_FOR_ITEM:
+      return {
+        ...state,
+        search: {
+          tracks: action.payload,
+          searchTerm: action.searchTerm
         }
       };
 
