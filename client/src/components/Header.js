@@ -33,32 +33,34 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <nav className="nav-bar">
+        <nav className='nav-bar'>
           <Link to='/'>
-            <div className="logo" role="link" tabIndex="0">
-              <i className="fas fa-headphones"></i>
+            <div className='logo' role='link' tabIndex='0'>
+              <i className='fas fa-headphones'></i>
               <h3>Songify</h3>
             </div>
           </Link>
-          <span className="search">
+          <span className='search'>
             <input
-              type="text"
-              className="search-input"
+              type='text'
+              className='search-input'
               value={this.state.searchValue}
-              placeholder="Search"
+              placeholder='Search'
               onChange={this.handleChange}
               onKeyPress={this.handleKeyPress}
             />
-            <i className="fas fa-search" onClick={() => {this.search(this.state.searchValue)}}></i>
+            <i className='fas fa-search' onClick={() => {this.search(this.state.searchValue)}}></i>
           </span>
-          <div className="nav-items">
-            <div className="nav-item">
+          <div className='nav-items'>
+            <div className='nav-item'>
               <Link to='/'>
-                <span className="nav-link" role="link" tabIndex="0">Browse</span>
+                <span className='nav-link' role='link' tabIndex='0'>Browse</span>
               </Link>
             </div>
-            <div className="nav-item">
-              <span className="nav-link" role="link" tabIndex="0">Your Music</span>
+            <div className='nav-item'>
+              <Link to='/playlists'>
+                <span className='nav-link' role='link' tabIndex='0'>Playlists</span>
+              </Link>
             </div>
           </div>
         </nav>
@@ -68,11 +70,11 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  playlists: PropTypes.object.isRequired
+  music: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  playlists: state.playlists
+  music: state.music
 });
 
 export default connect(mapStateToProps, { searchFor })(withRouter(Header));

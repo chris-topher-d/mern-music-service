@@ -18,8 +18,8 @@ class Artist extends Component {
   }
 
   render() {
-    const { tracks } = this.props.playlists.artist;
-    const albums = this.props.playlists.artist.tracks.reduce((acc, next) => {
+    const { tracks } = this.props.music.artist;
+    const albums = this.props.music.artist.tracks.reduce((acc, next) => {
       if (acc.find(obj => obj.title === next.album) === undefined) {
         acc.push({title: next.album, artwork: next.artwork});
       }
@@ -58,8 +58,8 @@ class Artist extends Component {
           <span className='album-name'>{track.album}</span>
         </div>
         <div className='track-options'>
-          {/* <input type='hidden' className='song-id' value='{$song->getId()}'/>
-          <i className='fas fa-ellipsis-h' onClick='showOptionsMenu(this)'></i> */}
+          <input type='hidden' className='song-id' value=''/>
+          <i className='fas fa-ellipsis-h'></i>
         </div>
         <div className='track-length'>
           <span className='duration'>{track.duration}</span>
@@ -71,7 +71,7 @@ class Artist extends Component {
       <div className='artist-container'>
         <div className='artist-info'>
           <div className='artist-header'>
-            <h1 className='name'>{this.props.playlists.artist.tracks.length > 0 ? tracks[0].artist : null}</h1>
+            <h1 className='name'>{this.props.music.artist.tracks.length > 0 ? tracks[0].artist : null}</h1>
             <div className='header-buttons'>
               <button className='button' onClick={this.playSong}>PLAY</button>
             </div>
@@ -96,13 +96,13 @@ class Artist extends Component {
 }
 
 Artist.propTypes = {
-  playlists: PropTypes.object.isRequired,
+  music: PropTypes.object.isRequired,
   currentlyPlaying: PropTypes.object.isRequired,
   controls: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  playlists: state.playlists,
+  music: state.music,
   currentlyPlaying: state.currentlyPlaying,
   controls: state.controls
 });

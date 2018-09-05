@@ -238,7 +238,6 @@ class Footer extends Component {
         <div className='controller-bar'>
           <div className='now-playing'>
             <div className='content'>
-              {/* <span className='album'> */}
               <Link to='/album'>
                 <img
                   src={this.props.currentlyPlaying.tracks.length > 0 ? this.props.currentlyPlaying.tracks[this.props.controls.index].artwork : null}
@@ -249,7 +248,6 @@ class Footer extends Component {
                   onClick={() => {this.getAlbum(this.props.currentlyPlaying.tracks[this.props.controls.index].album)}}
                  />
                </Link>
-              {/* </span> */}
               <div className='track-info'>
                 <Link to ='/album'>
                   <span
@@ -301,22 +299,9 @@ class Footer extends Component {
             <div className='volume-bar'>
               <i className='fas fa-volume-up' title='volume' style={!this.state.muted ? null : displayStyle} onClick={this.setMute}></i>
               <i className='fas fa-volume-off' title='volume muted' style={this.state.muted ? null : displayStyle } onClick={this.setMute}></i>
-              <div
-                className='volume-progress-bar'
-                // onClick={() => {this.setVolume()}}
-                onClick={this.setVolume}
-                // ref={ volumeBar => {this.volumeBar = volumeBar}}
-              >
-                <div
-                  className='volume-progress-bar-bg'
-                  // onClick={this.setVolume}
-                  ref={ volumeBar => {this.volumeBar = volumeBar}}
-                >
-                  <div
-                    className='volume-progress'
-                    style={{height: '100%'}}
-                    ref={ currentVolume => {this.currentVolume = currentVolume}}
-                  ></div>
+              <div className='volume-progress-bar' onClick={this.setVolume}>
+                <div className='volume-progress-bar-bg' ref={ volumeBar => {this.volumeBar = volumeBar}}>
+                  <div className='volume-progress' style={{height: '100%'}} ref={ currentVolume => {this.currentVolume = currentVolume}}></div>
                 </div>
               </div>
             </div>
@@ -328,13 +313,13 @@ class Footer extends Component {
 }
 
 Footer.propTypes = {
-  playlists: PropTypes.object.isRequired,
+  music: PropTypes.object.isRequired,
   currentlyPlaying: PropTypes.object.isRequired,
   controls: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  playlists: state.playlists,
+  music: state.music,
   currentlyPlaying: state.currentlyPlaying,
   controls: state.controls
 });

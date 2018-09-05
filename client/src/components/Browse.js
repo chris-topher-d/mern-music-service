@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getSongs, getSong } from '../actions/songActions';
-import { getAlbum } from '../actions/albumActions';
+import { getSongs, getAlbum } from '../actions/actions';
 import { Link } from 'react-router-dom';
 
 class Browse extends Component {
@@ -11,15 +10,13 @@ class Browse extends Component {
   }
 
   onClick = (songId, album, artist, artwork) => {
-    this.props.getSong(songId);
     this.props.getAlbum(album, artist, artwork);
   }
 
   render() {
-    const { songs } = this.props.songs;
-    // console.log(songs);
+    const { tracks } = this.props.music.songs;
 
-    let songList = songs.map(song => (
+    let songList = tracks.map(song => (
       <div className='song' key={song._id}>
         <Link to='/album'>
           <span role='link' tabIndex='0' onClick={() => {this.onClick(song._id, song.album, song.artist, song.artwork)}}>
@@ -43,14 +40,13 @@ class Browse extends Component {
 }
 
 Browse.propTypes = {
+  music: PropTypes.object.isRequired,
   getSongs: PropTypes.func.isRequired,
-  getSong: PropTypes.func.isRequired,
-  getAlbum: PropTypes.func.isRequired,
-  songs: PropTypes.object.isRequired
+  getAlbum: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  songs: state.songs
+  music: state.music
 });
 
-export default connect(mapStateToProps, { getSongs, getSong, getAlbum })(Browse);
+export default connect(mapStateToProps, { getSongs, getAlbum })(Browse);

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getSong } from '../actions/songActions';
+import { loadPlaylist } from '../actions/playlistActions';
+import { playSong } from '../actions/controlActions';
 
 class Album extends Component {
-  playSong = (songId) => {
-    this.props.getSong(songId)
+  play = (index, content) => {
+    this.props.loadPlaylist('album', content);
+    this.props.playSong(index);
   }
 
   showMenu = () => {
@@ -13,13 +15,23 @@ class Album extends Component {
   }
 
   render() {
-    const { albumInfo, songs } = this.props.album;
-    console.log(albumInfo, songs);
+    const { tracks } = this.props.music.album;
+    const albumInfo = this.props.music.album.tracks.reduce((acc, next) => {
+      acc = {album: next.album, artist: next.artist, artwork: next.artwork};
+      return acc;
+    }, {});
+    const playingStyle = {background: '#f2f2f2'};
+    let index;
+    this.props.controls.index === null ? index = 0 : index = this.props.controls.index;
 
-    const tracks = songs.map((song, idx) => (
-      <li className='track-list-row' key={song._id}>
+    const trackList = tracks.map((song, idx) => (
+      <li
+        className='track-list-row'
+        key={song._id}
+        style={this.props.currentlyPlaying.tracks[index] !== undefined && this.props.currentlyPlaying.tracks[index].title === song.title ? playingStyle : null}
+      >
         <div className='track-count'>
-          <i className='fas fa-play' onClick={() => {this.playSong(song._id)}}></i>
+          <i className='fas fa-play' onClick={() => {this.play(idx, song.album)}}></i>
           <span className='track-number'>{idx + 1}</span>
         </div>
         <div className='track-info'>
@@ -44,12 +56,12 @@ class Album extends Component {
           <div className='right-section'>
             <h2>{albumInfo.album}</h2>
             <p>by {albumInfo.artist}</p>
-            <p>{songs.length} tracks available</p>
+            <p>{tracks.length} tracks available</p>
           </div>
         </div>
         <div className='tracks-container'>
           <ul className='track-list'>
-            {tracks}
+            {trackList}
           </ul>
         </div>
       </div>
@@ -58,12 +70,17 @@ class Album extends Component {
 }
 
 Album.propTypes = {
-  album: PropTypes.object.isRequired,
-  getSong: PropTypes.func.isRequired
+  loadPlaylist: PropTypes.func.isRequired,
+  playSong: PropTypes.func.isRequired,
+  music: PropTypes.object.isRequired,
+  currentlyPlaying: PropTypes.object.isRequired,
+  controls: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  album: state.album
+  music: state.music,
+  currentlyPlaying: state.currentlyPlaying,
+  controls: state.controls
 });
 
-export default connect(mapStateToProps, { getSong })(Album);
+export default connect(mapStateToProps, { loadPlaylist, playSong })(Album);
