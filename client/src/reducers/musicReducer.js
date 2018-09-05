@@ -1,4 +1,4 @@
-import { GET_SONGS, GET_ALBUM, GET_ARTIST, SEARCH_FOR_ITEM } from '../actions/types';
+import { GET_SONGS, GET_ALBUM, GET_ARTIST, SEARCH_FOR_ITEM, GET_PLAYLISTS, GET_PLAYLIST, CREATE_PLAYLIST } from '../actions/types';
 
 const initialState = {
   songs: {
@@ -14,7 +14,8 @@ const initialState = {
   search: {
     tracks: [],
     searchTerm: ''
-  }
+  },
+  playlists: []
 };
 
 export default function(state = initialState, action) {
@@ -52,6 +53,30 @@ export default function(state = initialState, action) {
           tracks: action.payload,
           searchTerm: action.searchTerm
         }
+      };
+
+    case GET_PLAYLISTS:
+      return {
+        ...state,
+        playlists: action.payload
+      };
+
+    case GET_PLAYLIST:
+      return {
+        ...state,
+        playlists: action.payload
+      };
+
+    case CREATE_PLAYLIST:
+      return {
+        ...state,
+        playlists: [
+          ...state.playlists,
+          {
+            title: action.payload.title,
+            tracks: []
+          }
+        ]
       };
 
     default:
