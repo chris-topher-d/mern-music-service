@@ -16,6 +16,10 @@
     padding: 15px 40px 10px !important;
     min-width: 600px;
 
+    h2 {
+      margin-top: 20px;
+    }
+
     .tracks-container {
       display: flex;
       width: 100%;
@@ -27,13 +31,13 @@
         padding-bottom: 30px;
 
         h2 {
-          color: #fff;
-          background: #282828;
+          color: #282828;
+          border-bottom: 1px solid #282828;
           margin: 40px 0 20px;
-          padding: 5px 15px;
+          padding: 5px 0;
         }
 
-        .no-results {
+        .no-search-results {
           padding: 0 15px;
         }
 
@@ -125,13 +129,13 @@
         width: 100%;
 
         h2 {
-          color: #fff;
-          background: #282828;
+          color: #282828;
+          border-bottom: 1px solid #282828;
           margin: 40px 0 20px;
-          padding: 5px 15px;
+          padding: 5px 0;
         }
 
-        .no-results {
+        .no-search-results {
           padding: 0 15px;
         }
 
@@ -165,13 +169,13 @@
       letter-spacing: 1px;
 
       h2 {
-        color: #fff;
-        background: #282828;
+        color: #282828;
+        border-bottom: 1px solid #282828;
         margin: 40px 0 20px;
-        padding: 5px 15px;
+        padding: 5px 0;
       }
 
-      .no-results {
+      .no-search-results {
         padding: 0 15px;
       }
 
@@ -194,12 +198,18 @@
             }
 
             .grid-item-info {
-              font-size: 15px;
-              font-weight: 300;
-              margin-top: 5px;
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
+
+              .album-title {
+                font-size: 14px;
+              }
+
+              .album-artist {
+                font-size: 12px;
+                color: #909090;
+              }
             }
           }
         }
