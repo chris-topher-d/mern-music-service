@@ -6,6 +6,7 @@ const songs = require('./routes/api/songs');
 const album = require('./routes/api/album');
 const artist = require('./routes/api/artist');
 const search = require('./routes/api/search');
+const playlist = require('./routes/api/playlist');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use('/api/songs', songs);
 app.use('/api/album', album)
 app.use('/api/artist', artist);
 app.use('/api/search', search);
+app.use('/api/playlists', playlist);
 
 const port = process.env.PORT || 5000;
 
