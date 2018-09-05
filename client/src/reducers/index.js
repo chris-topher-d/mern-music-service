@@ -3,13 +3,13 @@ import reduceReducers from 'reduce-reducers';
 // import songReducer from './songReducer';
 // import albumReducer from './albumReducer';
 import errorReducer from './errorReducer';
-import playlistReducer from './playlistReducer';
+import currentlyPlaying from './currentlyPlayingReducer';
 import controlsReducer from './controlsReducer';
 import musicReducer from './musicReducer';
 
 const mainReducer = combineReducers({
-  playlists: musicReducer,
-  currentlyPlaying: playlistReducer,
+  music: musicReducer,
+  currentlyPlaying: currentlyPlaying,
   controls: controlsReducer,
   errors: errorReducer
 });
@@ -30,7 +30,7 @@ const createPlaylist = (state, action) => {
           ...state,
           currentlyPlaying: {
             ...state.currentlyPlaying,
-            tracks: state.playlists.album.tracks
+            tracks: state.music.album.tracks
           }
         };
 
@@ -39,7 +39,7 @@ const createPlaylist = (state, action) => {
           ...state,
           currentlyPlaying: {
             ...state.currentlyPlaying,
-            tracks: state.playlists.artist.tracks
+            tracks: state.music.artist.tracks
           }
         };
 
@@ -48,7 +48,7 @@ const createPlaylist = (state, action) => {
           ...state,
           currentlyPlaying: {
             ...state.currentlyPlaying,
-            tracks: state.playlists.search.tracks
+            tracks: state.music.search.tracks
           }
         };
 
