@@ -1,4 +1,4 @@
-import { LOAD_PLAYLIST, GET_PLAYLISTS, GET_PLAYLIST, CREATE_PLAYLIST, GET_ERRORS } from './types';
+import { LOAD_PLAYLIST, GET_PLAYLISTS, GET_PLAYLIST, CREATE_PLAYLIST, DELETE_PLAYLIST, GET_ERRORS } from './types';
 import axios from 'axios';
 
 export const loadPlaylist = (source, content) => dispatch => {
@@ -48,6 +48,22 @@ export const createPlaylist = playlist => dispatch => {
     .then(res =>
       dispatch({
         type: CREATE_PLAYLIST,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+}
+
+export const deletePlaylist = playlistId => dispatch => {
+  axios.delete(`/api/playlists/${playlistId}`)
+    .then(res =>
+      dispatch({
+        type: DELETE_PLAYLIST,
         payload: res.data
       })
     )
