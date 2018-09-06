@@ -37,4 +37,18 @@ router.post('/', (req, res) => {
     .catch(err => res.status(400).json({error: 'Unable to create playlist'}));
 });
 
+// @route  DELETE api/playlists/:playlistId
+// @desc   Delete playlist
+// @access Public
+router.delete('/:playlistId', (req, res) => {
+  Playlist.findByIdAndRemove(req.params.playlistId, (err, data) => {
+    if (err) return res.status(500).send(err);
+    const response = {
+      message: 'Playlist successfully deleted',
+      id: data._id
+    };
+    return res.status(200).send(response);
+  });
+});
+
 module.exports = router;
