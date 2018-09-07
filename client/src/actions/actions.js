@@ -55,7 +55,6 @@ export const getArtist = artist => dispatch => {
 
 // Search DB for matching terms
 export const searchFor = item => dispatch => {
-  console.log(item);
   axios.get(`/api/search/${item}`)
     .then(res =>
       dispatch({
