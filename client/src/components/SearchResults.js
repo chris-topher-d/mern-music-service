@@ -5,14 +5,9 @@ import { Link } from 'react-router-dom';
 import { playSong } from '../actions/controlActions';
 import { loadPlaylist } from '../actions/playlistActions';
 import { getAlbum, getArtist } from '../actions/actions';
+import OptionsMenu from './common/OptionsMenu';
 
 class SearchResults extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      trackOptions: false
-    }
-  }
 
   playSong = (index, content) => {
     this.props.loadPlaylist('search', content);
@@ -82,12 +77,8 @@ class SearchResults extends Component {
             </Link>
           </div>
           <div className='track-options'>
-            {/* <input type='hidden' className='song-id' value=''/> */}
             <i className='fas fa-ellipsis-h'></i>
-            <nav className='options-menu'>
-              <p>Add track to playlist:</p>
-              <input type='hidden' className='song-id' />
-            </nav>
+            <OptionsMenu songId={track._id} />
           </div>
           <div className='track-length'>
             <span className='duration'>{track.duration}</span>

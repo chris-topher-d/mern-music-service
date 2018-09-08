@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { loadPlaylist } from '../actions/playlistActions';
 import { playSong } from '../actions/controlActions';
 import { getAlbum } from '../actions/actions';
+import OptionsMenu from './common/OptionsMenu';
 
 class Artist extends Component {
 
@@ -58,8 +59,8 @@ class Artist extends Component {
           <span className='album-name'>{track.album}</span>
         </div>
         <div className='track-options'>
-          <input type='hidden' className='song-id' value=''/>
           <i className='fas fa-ellipsis-h'></i>
+          <OptionsMenu songId={track._id} />
         </div>
         <div className='track-length'>
           <span className='duration'>{track.duration}</span>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadPlaylist } from '../actions/playlistActions';
 import { playSong } from '../actions/controlActions';
+import OptionsMenu from './common/OptionsMenu';
 
 class Album extends Component {
   play = (index, content) => {
@@ -38,8 +39,8 @@ class Album extends Component {
           <span className='track-name'>{song.title}</span>
         </div>
         <div className='track-options'>
-          <input type='hidden' className='song-id' value=''/>
-          <i className='fas fa-ellipsis-h' onClick={this.showMenu}></i>
+          <i className='fas fa-ellipsis-h'></i>
+          <OptionsMenu songId={song._id} />
         </div>
         <div className='track-length'>
           <span className='duration'>{song.duration}</span>
