@@ -2,19 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
-import { deletePlaylist } from '../actions/playlistActions';
+import { loadPlaylist, getPlaylist, deletePlaylist } from '../actions/playlistActions';
 import { getArtist } from '../actions/actions';
+import { playSong } from '../actions/controlActions';
+import PlaylistMenu from './common/PlaylistMenu';
 
 import playlistIcon from '../images/playlist_orange.png';
 
 class Playlist extends Component {
-  playSong = song => {
-    console.log('Play Song');
+  componentDidUpdate() {
+    this.props.getPlaylist(this.props.music.playlists[0]._id);
   }
 
-  deletePlaylist = id => {
-    this.props.deletePlaylist(id);
-    this.props.history.push('/playlists/');
+  play = (index, content) => {
+    this.props.loadPlaylist('playlist', content);
+    this.props.playSong(index);
+  }
+
+  deletePlaylist = playlistId => {
+    this.props.deletePlaylist(playlistId);
+    // this.props.history.push('/playlists/');
   }
 
   getArtist = artist => {
@@ -22,10 +29,18 @@ class Playlist extends Component {
   }
 
   render() {
+    let index;
+    this.props.controls.index === null ? index = 0 : index = this.props.controls.index;
+    const playingStyle = {background: '#f2f2f2'};
+
     const trackList = this.props.music.playlists[0].tracks.map((track, idx) => (
-      <li key={track._id} className='track-list-row'>
+      <li
+        key={track._id + idx}
+        className='track-list-row'
+        style={this.props.currentlyPlaying.tracks[index] !== undefined && this.props.currentlyPlaying.tracks[index].title === track.title ? playingStyle : null}
+      >
         <div className='track-count'>
-          <i className='fas fa-play' onClick={this.playSong}></i>
+          <i className='fas fa-play' onClick={() => {this.play(idx, this.props.music.playlists[0].title)}}></i>
           <span className='track-number'>{idx + 1}</span>
         </div>
         <div className='track-info'>
@@ -35,8 +50,8 @@ class Playlist extends Component {
           </Link>
         </div>
         <div className='track-options'>
-          <input type='hidden' className='song-id' value='' />
           <i className='fas fa-ellipsis-h'></i>
+          <PlaylistMenu playlistId={this.props.music.playlists[0]._id} songId={track._id} />
         </div>
         <div className='track-length'>
           <span className='duration'>{track.duration}</span>
@@ -55,38 +70,17 @@ class Playlist extends Component {
             </div>
             <div className='right-section'>
               <h2 className='playlist-name'>{this.props.music.playlists[0].title}</h2>
-              {/* <p>by User</p> */}
-              {/* <p>Track Count</p> */}
-              <button className='button' onClick={() => {this.deletePlaylist(this.props.music.playlists[0]._id)}}>Delete Playlist</button>
+              <p>Track Count: {this.props.music.playlists[0].tracks.length}</p>
+              <Link to='/playlists'>
+                <button className='button' onClick={() => {this.deletePlaylist(this.props.music.playlists[0]._id)}}>Delete Playlist</button>
+              </Link>
             </div>
           </div>
           <div className='tracks-container'>
             <ul className='track-list'>
-              {/* <li className='track-list-row'>
-                <div className='track-count'>
-                  <i className='fas fa-play' onClick={this.playSong}></i>
-                  <span className='track-number'>Track Number</span>
-                </div>
-                <div className='track-info'>
-                  <span className='track-name'>Track Name</span>
-                  <span className='artist-name'>Artist</span>
-                </div>
-                <div className='track-options'>
-                  <input type='hidden' className='song-id' value='' />
-                  <i className='fas fa-ellipsis-h'></i>
-                </div>
-                <div className='track-length'>
-                  <span className='duration'>Song Duration</span>
-                </div>
-              </li> */}
               {trackList}
             </ul>
           </div>
-          {/* popup menu for each track */}
-          {/* <nav class='options-menu'>
-            <input type='hidden' class='song-id'>
-            <div class='item' onClick={this.removeFromPlaylist})'>Remove from playlist</div>
-          </div> */}
         </div>
       </div>
     );
@@ -94,11 +88,15 @@ class Playlist extends Component {
 }
 
 Playlist.propTypes = {
-  music: PropTypes.object.isRequired
+  music: PropTypes.object.isRequired,
+  currentlyPlaying: PropTypes.object.isRequired,
+  controls: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  music: state.music
+  music: state.music,
+  currentlyPlaying: state.currentlyPlaying,
+  controls: state.controls
 });
 
-export default connect(mapStateToProps, { deletePlaylist, getArtist })(withRouter(Playlist));
+export default connect(mapStateToProps, { loadPlaylist, getPlaylist, deletePlaylist, getArtist, playSong })(withRouter(Playlist));
