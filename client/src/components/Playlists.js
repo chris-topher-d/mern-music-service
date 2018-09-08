@@ -6,13 +6,12 @@ import { getPlaylists, getPlaylist, createPlaylist } from '../actions/playlistAc
 import playlistIcon from '../images/playlist_orange.png';
 
 class Playlists extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.getPlaylists();
   }
 
-  getPlaylist = playlist => {
-    console.log(playlist);
-    this.props.getPlaylist(playlist);
+  getPlaylist = playlistId => {
+    this.props.getPlaylist(playlistId);
   }
 
   createPlaylist = () => {
@@ -22,14 +21,13 @@ class Playlists extends Component {
 
     if (newPlaylist !== null) {
       this.props.createPlaylist(newPlaylist);
-      this.props.history.push(`/playlists/${newPlaylist.playlist}`);
     }
   }
 
   render() {
     const playlists = this.props.music.playlists.map((playlist, idx) => (
-      <div key={idx} className='grid-item' role='link' tabIndex='0' onClick={() => {this.getPlaylist(playlist.title)}}>
-        <Link to='/playlists/playlist'>
+      <div key={idx} className='grid-item' role='link' tabIndex='0' onClick={() => {this.getPlaylist(playlist._id)}}>
+        <Link to={`/playlists/${playlist.title}`}>
           <div className='playlist-image'>
             <img src={playlistIcon} alt='playlist-icon' />
           </div>
@@ -38,7 +36,8 @@ class Playlists extends Component {
           </div>
         </Link>
       </div>
-    ))
+    ));
+
     return (
       <div className='playlist-container'>
         <div className='grid-container'>
