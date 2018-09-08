@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 // Playlist model
 const Playlist = require('../../models/Playlist');
 
+// Song model
+const Song = require('../../models/Song');
+
 // @route  GET api/playlists
 // @desc   Get all playlists
 // @access Public
@@ -15,10 +18,10 @@ router.get('/', (req, res) => {
 });
 
 // @route  GET api/playlists/:playlist
-// @desc   Get playlist by title
+// @desc   Get playlist by id
 // @access Public
-router.get('/:playlist', (req, res) => {
-  Playlist.find({ title: req.params.playlist })
+router.get('/:playlistId', (req, res) => {
+  Playlist.findById(req.params.playlistId)
     .then(playlist => res.json(playlist))
     .catch(err => res.status(404).json({noplaylist: 'No playlist found'}));
 });
@@ -43,12 +46,50 @@ router.post('/', (req, res) => {
 router.delete('/:playlistId', (req, res) => {
   Playlist.findByIdAndRemove(req.params.playlistId, (err, data) => {
     if (err) return res.status(500).send(err);
-    const response = {
-      message: 'Playlist successfully deleted',
-      id: data._id
-    };
-    return res.status(200).send(response);
+    return res.status(200).send(data);
   });
+});
+
+// @route  POST api/playlists/:playlist/:songId
+// @desc   Add new song to playlist
+// @access Public
+router.post('/:playlistId/:songId', (req, res) => {
+  Playlist.findById(req.params.playlistId)
+    .then(playlist => {
+      if (playlist) {
+        Song.findById(req.params.songId)
+          .then(song => {
+            if (song) {
+              Playlist.update(
+                { _id: req.params.playlistId },
+                { $push: { tracks: song }}
+              )
+              .then(playlist => res.json(playlist));
+            }
+          })
+          .catch(err => res.json(err));
+      }
+    })
+    .catch(err => res.status(404).json(err));
+});
+
+// @route  DELETE api/playlists/:playlist/:songId
+// @desc   Delete song from playlist
+// @access Public
+router.delete('/:playlistId/:songId', (req, res) => {
+  Playlist.findById(req.params.playlistId)
+    .then(playlist => {
+      if (playlist) {
+        let newPlaylist = playlist.tracks.filter(track => track._id.toString() !== req.params.songId);
+        Playlist.update(
+          { _id: req.params.playlistId },
+          { tracks: newPlaylist },
+          { multi: true }
+        )
+        .then(playlist => res.json(playlist));
+      }
+    })
+    .catch(err => res.status(404).json(err));
 });
 
 module.exports = router;
