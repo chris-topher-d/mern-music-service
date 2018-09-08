@@ -1,7 +1,5 @@
 import { combineReducers } from 'redux';
 import reduceReducers from 'reduce-reducers';
-// import songReducer from './songReducer';
-// import albumReducer from './albumReducer';
 import errorReducer from './errorReducer';
 import currentlyPlaying from './currentlyPlayingReducer';
 import controlsReducer from './controlsReducer';
@@ -49,6 +47,15 @@ const createPlaylist = (state, action) => {
           currentlyPlaying: {
             ...state.currentlyPlaying,
             tracks: state.music.search.tracks
+          }
+        };
+
+      case 'playlist':
+        return {
+          ...state,
+          currentlyPlaying: {
+            ...state.currentlyPlaying,
+            tracks: state.music.playlists[0].tracks
           }
         };
 
