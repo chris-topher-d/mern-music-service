@@ -1,4 +1,4 @@
-import { GET_SONGS, GET_ALBUM, GET_ARTIST, SEARCH_FOR_ITEM, GET_PLAYLISTS, GET_PLAYLIST, CREATE_PLAYLIST } from '../actions/types';
+import { GET_SONGS, GET_ALBUM, GET_ARTIST, SEARCH_FOR_ITEM, GET_PLAYLISTS, GET_PLAYLIST, CREATE_PLAYLIST, DELETE_PLAYLIST } from '../actions/types';
 
 const initialState = {
   songs: {
@@ -64,7 +64,7 @@ export default function(state = initialState, action) {
     case GET_PLAYLIST:
       return {
         ...state,
-        playlists: action.payload
+        playlists: [action.payload]
       };
 
     case CREATE_PLAYLIST:
@@ -72,11 +72,14 @@ export default function(state = initialState, action) {
         ...state,
         playlists: [
           ...state.playlists,
-          {
-            title: action.payload.title,
-            tracks: []
-          }
+          action.payload
         ]
+      };
+
+    case DELETE_PLAYLIST:
+      return {
+        ...state,
+        playlists: state.playlists.filter(playlist => playlist._id !== action.payload._id)
       };
 
     default:
