@@ -29,7 +29,7 @@ header {
 
       h3 {
         text-transform: uppercase;
-        color: orange;
+        color: $orange;
       }
     }
 
@@ -60,9 +60,10 @@ header {
         padding: 0 5px;
         font-size: 15px;
         color: #909090;
+        cursor: pointer;
 
         &:hover {
-          cursor: pointer;
+          color: $aqua;
         }
       }
     }
@@ -88,7 +89,7 @@ header {
           }
 
           &:hover {
-            color: orange;
+            color: $orange;
           }
         }
       }

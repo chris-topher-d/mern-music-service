@@ -71,7 +71,7 @@ footer {
         padding: 0 10px;
 
         &:hover {
-          color: orange;
+          color: $orange;
         }
       }
     }
@@ -104,7 +104,7 @@ footer {
           border-radius: 5px;
 
           .progress {
-            background: orange;
+            background: $orange;
             width: 0;
             height: 1px;
             border-radius: 5px;
@@ -175,7 +175,7 @@ footer {
             }
 
             .volume-progress {
-              background: orange;
+              background: $orange;
               width: 3px;
             }
           }
