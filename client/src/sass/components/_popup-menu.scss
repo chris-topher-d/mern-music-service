@@ -1,0 +1,56 @@
+// used in:
+// Album.js
+// Artist.js
+// SearchResults.js
+
+.options-menu {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #282828;
+  z-index: 100;
+
+  &:hover {
+    display: flex;
+  }
+
+  .header {
+    padding: 5px 10px;
+  }
+
+  .remove-track {
+    color: #fff;
+    background: $red;
+    padding: 10px 10px;
+    cursor: pointer;
+  }
+
+  .clicked {
+    animation: clicked 1s ease-out;
+  }
+
+  .playlist {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    color: #282828;
+    background: #fff;
+    padding: 10px 10px;
+    cursor: pointer;
+
+    &:hover {
+      color: #fff;
+      background: #333;
+    }
+  }
+
+  @keyframes clicked {
+    0% {
+      background-color: $green;
+    }
+    100% {
+      background-color: none;
+    }
+  }
+}
