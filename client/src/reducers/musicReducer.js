@@ -47,7 +47,8 @@ export default function(state = initialState, action) {
         album: {
           tracks: action.payload,
           albumInfo: action.albumInfo
-        }
+        },
+        loading: false
       };
 
     case GET_ARTIST:
@@ -55,7 +56,8 @@ export default function(state = initialState, action) {
         ...state,
         artist: {
           tracks: action.payload
-        }
+        },
+        loading: false
       };
 
     case SEARCH_FOR_ITEM:
