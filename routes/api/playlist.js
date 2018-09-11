@@ -56,7 +56,7 @@ router.delete('/:playlistId', (req, res) => {
 router.post('/:playlistId/:songId', (req, res) => {
   Playlist.findById(req.params.playlistId)
     .then(playlist => {
-      if (playlist) {
+      if (playlist.tracks.findIndex(track => track._id.toString() === req.params.songId) === -1) {
         Song.findById(req.params.songId)
           .then(song => {
             if (song) {
