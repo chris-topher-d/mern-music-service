@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { loadPlaylist } from '../actions/playlistActions';
 import { playSong } from '../actions/controlActions';
 import { getAlbum } from '../actions/actions';
+import Spinner from './common/Spinner';
 import OptionsMenu from './common/OptionsMenu';
 
 class Artist extends Component {
@@ -28,7 +29,7 @@ class Artist extends Component {
     }, []);
 
     const playingStyle = {background: '#f2f2f2'};
-    let index;
+    let index, artistContent;
     this.props.controls.index === 0 ? index = 0 : index = this.props.controls.index;
 
     const albumList = albums.map((album, idx) => (
@@ -68,13 +69,20 @@ class Artist extends Component {
       </li>
     ));
 
-    return (
-      <div className='artist-container'>
+    if (this.props.music.loading) {
+      artistContent = (
+        <div className='artist-info'>
+          <Spinner />
+        </div>
+      );
+    } else {
+      artistContent = (
         <div className='artist-info'>
           <div className='artist-header'>
             <h1 className='name'>{this.props.music.artist.tracks.length > 0 ? tracks[0].artist : null}</h1>
-            <div className='header-buttons'>
-              <button className='button' onClick={this.playSong}>PLAY</button>
+            <div className='header-buttons' onClick={() => {this.play(0, tracks[0].artist)}}>
+              <p className='play'>PLAY</p>
+              <i className='fas fa-play'></i>
             </div>
           </div>
           <div className='center-container'>
@@ -91,6 +99,12 @@ class Artist extends Component {
             </div>
           </div>
         </div>
+      );
+    }
+
+    return (
+      <div className='artist-container'>
+        {artistContent}
       </div>
     );
   }
