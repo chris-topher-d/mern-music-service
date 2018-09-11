@@ -6,7 +6,8 @@
 
   .search-results {
     width: 70%;
-    min-width: 600px;
+    min-width: 700px;
+    max-width: 1080px;
     min-height: calc(100vh - 60px);
     display: flex;
     flex-direction: column;

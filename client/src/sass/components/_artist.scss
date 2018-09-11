@@ -9,10 +9,11 @@
     flex-direction: column;
     align-items: center;
     width: 70%;
+    min-width: 700px;
+    max-width: 1080px;
     min-height: calc(100vh - 60px);
     background-color: #fff;
     padding: 75px 40px 10px !important;
-    min-width: 700px;
 
     .artist-header {
       display: flex;
