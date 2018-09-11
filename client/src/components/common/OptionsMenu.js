@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getPlaylists, addToPlaylist } from '../../actions/playlistActions';
+import { addToPlaylist } from '../../actions/playlistActions';
 
 class OptionsMenu extends Component {
   constructor(props) {
@@ -9,10 +9,6 @@ class OptionsMenu extends Component {
     this.state = {
       clicked: false
     }
-  }
-
-  componentWillMount() {
-    this.props.getPlaylists();
   }
 
   addToPlaylist = (playlistId, songId) => {
@@ -36,7 +32,7 @@ class OptionsMenu extends Component {
 
     return (
       <nav className='options-menu'>
-        <p className='header'>Add track to playlist:</p>
+        <p className='header'>Add track to playlist</p>
         {playlists}
         <input type='hidden' className='song-id' />
       </nav>
@@ -52,4 +48,4 @@ const mapStateToProps = state => ({
   music: state.music
 });
 
-export default connect(mapStateToProps, { getPlaylists, addToPlaylist })(OptionsMenu);
+export default connect(mapStateToProps, { addToPlaylist })(OptionsMenu);
