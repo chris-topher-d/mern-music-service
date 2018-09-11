@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { getPlaylists, getPlaylist, createPlaylist } from '../actions/playlistActions';
-import playlistIcon from '../images/playlist_orange.png';
+import Spinner from './common/Spinner';
+import playlistIcon from '../images/playlist-record.jpg';
 
 class Playlists extends Component {
   componentDidMount() {
@@ -25,6 +26,8 @@ class Playlists extends Component {
   }
 
   render() {
+    let playlistsContent;
+
     const playlists = this.props.music.playlists.map((playlist, idx) => (
       <div key={idx} className='grid-item' role='link' tabIndex='0' onClick={() => {this.getPlaylist(playlist._id)}}>
         <Link to={`/playlists/${playlist.title}`}>
@@ -38,8 +41,14 @@ class Playlists extends Component {
       </div>
     ));
 
-    return (
-      <div className='playlist-container'>
+    if (this.props.music.loading) {
+      playlistsContent = (
+        <div className='grid-container'>
+          <Spinner />
+        </div>
+      );
+    } else {
+      playlistsContent = (
         <div className='grid-container'>
           <h2>Your Playlists</h2>
           <div className='playlist-results'>
@@ -49,6 +58,12 @@ class Playlists extends Component {
             </div>
           </div>
         </div>
+      );
+    }
+
+    return (
+      <div className='playlist-container'>
+        {playlistsContent}
       </div>
     );
   }

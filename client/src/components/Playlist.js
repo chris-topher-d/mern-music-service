@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
-import { loadPlaylist, getPlaylist, deletePlaylist } from '../actions/playlistActions';
+import { Link } from 'react-router-dom';
+import { loadPlaylist, deletePlaylist } from '../actions/playlistActions';
 import { getArtist } from '../actions/actions';
 import { playSong } from '../actions/controlActions';
+import Spinner from './common/Spinner';
 import PlaylistMenu from './common/PlaylistMenu';
 
 import playlistIcon from '../images/playlist_orange.png';
 
 class Playlist extends Component {
-  componentDidUpdate() {
-    this.props.getPlaylist(this.props.music.playlists[0]._id);
-  }
-
   play = (index, content) => {
     this.props.loadPlaylist('playlist', content);
     this.props.playSong(index);
@@ -21,7 +18,6 @@ class Playlist extends Component {
 
   deletePlaylist = playlistId => {
     this.props.deletePlaylist(playlistId);
-    // this.props.history.push('/playlists/');
   }
 
   getArtist = artist => {
@@ -29,7 +25,7 @@ class Playlist extends Component {
   }
 
   render() {
-    let index;
+    let index, playlistContent;
     this.props.controls.index === null ? index = 0 : index = this.props.controls.index;
     const playingStyle = {background: '#f2f2f2'};
 
@@ -59,8 +55,14 @@ class Playlist extends Component {
       </li>
     ));
 
-    return (
-      <div className='playlist-container'>
+    if (this.props.music.loading) {
+      playlistContent = (
+        <div className='playlist-info'>
+          <Spinner />
+        </div>
+      );
+    } else {
+      playlistContent = (
         <div className='playlist-info'>
           <div className='album-info-top'>
             <div className='left-section'>
@@ -70,7 +72,7 @@ class Playlist extends Component {
             </div>
             <div className='right-section'>
               <h2 className='playlist-name'>{this.props.music.playlists[0].title}</h2>
-              <p>Track Count: {this.props.music.playlists[0].tracks.length}</p>
+              <p>{this.props.music.playlists[0].tracks.length} {this.props.music.playlists[0].tracks.length > 1 ? 'tracks' : 'track'}</p>
               <Link to='/playlists'>
                 <button className='button' onClick={() => {this.deletePlaylist(this.props.music.playlists[0]._id)}}>Delete Playlist</button>
               </Link>
@@ -82,6 +84,12 @@ class Playlist extends Component {
             </ul>
           </div>
         </div>
+      );
+    }
+
+    return (
+      <div className='playlist-container'>
+        {playlistContent}
       </div>
     );
   }
@@ -99,4 +107,4 @@ const mapStateToProps = state => ({
   controls: state.controls
 });
 
-export default connect(mapStateToProps, { loadPlaylist, getPlaylist, deletePlaylist, getArtist, playSong })(withRouter(Playlist));
+export default connect(mapStateToProps, { loadPlaylist, deletePlaylist, getArtist, playSong })(Playlist);
