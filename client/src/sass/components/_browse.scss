@@ -6,9 +6,133 @@
   .browse-songs {
     width: 70%;
     min-width: 700px;
+    max-width: 1080px;
     min-height: calc(100vh - 60px);
     background-color: #fff;
-    padding: 100px 0 0 40px;
+    padding: 100px 40px 40px 40px;
+
+    h2 {
+      margin-bottom: 40px;
+    }
+
+    .song-details {
+      display: flex;
+      height: 150px;
+      margin-bottom: 25px;
+
+      .album-cover {
+        margin-right: 20px;
+
+        img {
+          height: 150px;
+          width: 150px
+        }
+      }
+
+      .track-list-row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        list-style: none;
+        padding: 10px 15px;
+
+        &:hover {
+          // background: $lightGray;
+          // border: 1px solid $mediumGray;
+          // margin: -1px;
+          // margin: -1px -1px 1px -1px;
+          // padding: 10px 15px 8px;
+          padding: 10px 15px;
+          background: rgb(34,31,31);
+          background: -moz-linear-gradient(180deg, rgba(34,31,31,0) 50%, rgba(144,144,144,0.7234244039412641) 100%);
+          background: -webkit-linear-gradient(180deg, rgba(34,31,31,0) 50%, rgba(144,144,144,0.7234244039412641) 100%);
+          background: linear-gradient(180deg, rgba(34,31,31,0) 50%, rgba(144,144,144,0.7234244039412641) 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#221f1f",endColorstr="#909090",GradientType=1);
+
+          .track-info-right {
+            .track-options {
+              .fa-ellipsis-h {
+                visibility: visible;
+
+                &:hover ~ .options-menu {
+                  display: flex;
+                }
+              }
+            }
+          }
+        }
+
+        .track-info-left {
+          display: flex;
+
+          .play-circle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            width: 50px;
+            background: $orange;
+            border-radius: 50%;
+            opacity: .8;
+            margin-right: 15px;
+            cursor: pointer;
+
+            &:hover {
+              opacity: 1;
+            }
+
+            .fa-play {
+              color: #fff;
+              font-size: 20px;
+              padding-left: 3px;
+            }
+          }
+
+          .track-details {
+            display: flex;
+            flex-direction: column;
+
+            .track-name {
+              font-size: 18px;
+            }
+
+            .artist-name {
+              font-size: 15px;
+              color: $mediumGray;
+              margin: 10px 0;
+
+              &:hover {
+                color: $darkGray;
+              }
+            }
+          }
+        }
+
+        .track-info-right {
+          display: flex;
+
+          .track-options {
+            display: flex;
+            justify-content: center;
+            margin-right: 200px;
+
+            .fa-ellipsis-h {
+              visibility: hidden;
+              float: right;
+              cursor: pointer;
+            }
+          }
+
+          .track-length {
+            display: flex;
+            justify-content: flex-end;
+            color: $darkGray;
+            font-size: 15px;
+            padding-right: 15px;
+          }
+        }
+      }
+    }
 
     .song {
       display: inline-block;
