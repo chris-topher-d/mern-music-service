@@ -1,6 +1,18 @@
-import { GET_SONGS, GET_ALBUM, GET_ARTIST, SEARCH_FOR_ITEM, GET_PLAYLISTS, GET_PLAYLIST, CREATE_PLAYLIST, DELETE_PLAYLIST } from '../actions/types';
+import {
+  GET_SONGS,
+  GET_ALBUM,
+  GET_ARTIST,
+  SEARCH_FOR_ITEM,
+  GET_PLAYLISTS,
+  GET_PLAYLIST,
+  CREATE_PLAYLIST,
+  DELETE_PLAYLIST,
+  REMOVE_FROM_PLAYLIST,
+  PAGE_LOADING
+} from '../actions/types';
 
 const initialState = {
+  loading: false,
   songs: {
     tracks: []
   },
@@ -49,6 +61,7 @@ export default function(state = initialState, action) {
     case SEARCH_FOR_ITEM:
       return {
         ...state,
+        loading: false,
         search: {
           tracks: action.payload,
           searchTerm: action.searchTerm
@@ -58,13 +71,15 @@ export default function(state = initialState, action) {
     case GET_PLAYLISTS:
       return {
         ...state,
-        playlists: action.payload
+        playlists: action.payload,
+        loading: false
       };
 
     case GET_PLAYLIST:
       return {
         ...state,
-        playlists: [action.payload]
+        playlists: [action.payload],
+        loading: false
       };
 
     case CREATE_PLAYLIST:
@@ -80,6 +95,21 @@ export default function(state = initialState, action) {
       return {
         ...state,
         playlists: state.playlists.filter(playlist => playlist._id !== action.payload._id)
+      };
+
+    case REMOVE_FROM_PLAYLIST:
+      return {
+        ...state,
+        playlists: [{
+          ...state.playlists[0],
+          tracks: state.playlists[0].tracks.filter(track => track._id !== action.songId)
+        }]
+      }
+
+    case PAGE_LOADING:
+      return {
+        ...state,
+        loading: true
       };
 
     default:
