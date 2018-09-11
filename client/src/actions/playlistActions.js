@@ -6,6 +6,7 @@ import {
   DELETE_PLAYLIST,
   ADD_TO_PLAYLIST,
   REMOVE_FROM_PLAYLIST,
+  PAGE_LOADING,
   GET_ERRORS
 } from './types';
 import axios from 'axios';
@@ -21,6 +22,7 @@ export const loadPlaylist = (source, content) => dispatch => {
 }
 
 export const getPlaylists = () => dispatch => {
+  dispatch(pageLoading());
   axios.get('/api/playlists')
     .then(res =>
       dispatch({
@@ -37,6 +39,7 @@ export const getPlaylists = () => dispatch => {
 }
 
 export const getPlaylist = playlistId => dispatch => {
+  dispatch(pageLoading());
   axios.get(`/api/playlists/${playlistId}`)
     .then(res =>
       dispatch({
@@ -105,7 +108,8 @@ export const removeFromPlaylist = (playlistId, songId) => dispatch => {
     .then(res =>
       dispatch({
         type: REMOVE_FROM_PLAYLIST,
-        payload: res.data
+        payload: res.data,
+        songId: songId
       })
     )
     .catch(err =>
@@ -114,4 +118,11 @@ export const removeFromPlaylist = (playlistId, songId) => dispatch => {
         payload: err.response.data
       })
     );
+}
+
+// Set loading state to true
+export const pageLoading = () => {
+  return {
+    type: PAGE_LOADING
+  };
 }

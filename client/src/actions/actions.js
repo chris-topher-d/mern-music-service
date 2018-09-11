@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { GET_SONGS, GET_ALBUM, GET_ARTIST, SEARCH_FOR_ITEM, GET_ERRORS } from './types';
+import {
+  GET_SONGS,
+  GET_ALBUM,
+  GET_ARTIST,
+  SEARCH_FOR_ITEM,
+  PAGE_LOADING,
+  GET_ERRORS 
+} from './types';
 
 // Get all songs
 export const getSongs = () => dispatch => {
@@ -55,6 +62,7 @@ export const getArtist = artist => dispatch => {
 
 // Search DB for matching terms
 export const searchFor = item => dispatch => {
+  dispatch(pageLoading());
   axios.get(`/api/search/${item}`)
     .then(res =>
       dispatch({
@@ -69,4 +77,10 @@ export const searchFor = item => dispatch => {
         payload: err.response.data
       })
     );
+}
+
+export const pageLoading = () => {
+  return {
+    type: PAGE_LOADING
+  };
 }
