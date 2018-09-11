@@ -3,16 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadPlaylist } from '../actions/playlistActions';
 import { playSong } from '../actions/controlActions';
+import Spinner from './common/Spinner';
 import OptionsMenu from './common/OptionsMenu';
 
 class Album extends Component {
   play = (index, content) => {
     this.props.loadPlaylist('album', content);
     this.props.playSong(index);
-  }
-
-  showMenu = () => {
-
   }
 
   render() {
@@ -22,7 +19,7 @@ class Album extends Component {
       return acc;
     }, {});
     const playingStyle = {background: '#f2f2f2'};
-    let index;
+    let index, albumContent;
     this.props.controls.index === null ? index = 0 : index = this.props.controls.index;
 
     const trackList = tracks.map((song, idx) => (
@@ -48,23 +45,37 @@ class Album extends Component {
       </li>
     ));
 
+    if (this.props.music.loading) {
+      albumContent = (
+        <div className='album-info-background'>
+          <Spinner />
+        </div>
+      );
+    } else {
+      albumContent = (
+        <div className='album-info-background'>
+          <div className='album-info-top'>
+            <div className='left-section'>
+              <img src={albumInfo.artwork} alt='album cover'/>
+            </div>
+            <div className='right-section'>
+              <h2>{albumInfo.album}</h2>
+              <p>by {albumInfo.artist}</p>
+              <p>{tracks.length > 1 ? `${tracks.length} tracks available` : `${tracks.length} track available`}</p>
+            </div>
+          </div>
+          <div className='tracks-container'>
+            <ul className='track-list'>
+              {trackList}
+            </ul>
+          </div>
+        </div>
+      );
+    }
+
     return(
       <div className='album-container'>
-        <div className='album-info-top'>
-          <div className='left-section'>
-            <img src={albumInfo.artwork} alt='album cover'/>
-          </div>
-          <div className='right-section'>
-            <h2>{albumInfo.album}</h2>
-            <p>by {albumInfo.artist}</p>
-            <p>{tracks.length} tracks available</p>
-          </div>
-        </div>
-        <div className='tracks-container'>
-          <ul className='track-list'>
-            {trackList}
-          </ul>
-        </div>
+        {albumContent}
       </div>
     );
   }

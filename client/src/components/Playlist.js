@@ -7,7 +7,6 @@ import { getArtist } from '../actions/actions';
 import { playSong } from '../actions/controlActions';
 import Spinner from './common/Spinner';
 import PlaylistMenu from './common/PlaylistMenu';
-
 import playlistIcon from '../images/playlist_orange.png';
 
 class Playlist extends Component {
@@ -71,8 +70,10 @@ class Playlist extends Component {
               </div>
             </div>
             <div className='right-section'>
-              <h2 className='playlist-name'>{this.props.music.playlists[0].title}</h2>
-              <p>{this.props.music.playlists[0].tracks.length} {this.props.music.playlists[0].tracks.length > 1 ? 'tracks' : 'track'}</p>
+              <div className='playlist-details'>
+                <h2 className='playlist-name'>{this.props.music.playlists[0].title}</h2>
+                <p>{this.props.music.playlists[0].tracks.length} {this.props.music.playlists[0].tracks.length > 1 ? 'tracks' : 'track'}</p>
+              </div>
               <Link to='/playlists'>
                 <button className='button' onClick={() => {this.deletePlaylist(this.props.music.playlists[0]._id)}}>Delete Playlist</button>
               </Link>
