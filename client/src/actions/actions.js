@@ -5,7 +5,7 @@ import {
   GET_ARTIST,
   SEARCH_FOR_ITEM,
   PAGE_LOADING,
-  GET_ERRORS 
+  GET_ERRORS
 } from './types';
 
 // Get all songs
@@ -27,6 +27,7 @@ export const getSongs = () => dispatch => {
 
 // Get album songs
 export const getAlbum = (album, artist, artwork) => dispatch => {
+  dispatch(pageLoading());
   axios.get(`/api/album/${album}`)
     .then(res =>
       dispatch({
@@ -45,6 +46,7 @@ export const getAlbum = (album, artist, artwork) => dispatch => {
 
 // Get albums and songs by artist
 export const getArtist = artist => dispatch => {
+  dispatch(pageLoading());
   axios.get(`/api/artist/${artist}`)
     .then(res =>
       dispatch({
