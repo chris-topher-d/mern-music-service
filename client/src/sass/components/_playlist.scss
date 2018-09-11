@@ -1,47 +1,72 @@
-.album-container {
+.playlist-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
+  min-height: 100%;
+  padding-top: 60px;
 
-  .album-info-background {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .playlist-info {
     width: 70%;
     min-width: 700px;
-    min-height: calc(100vh - 60px);
-    background-color: #fff;
-    padding: 100px 40px 10px!important;
+    min-height: calc(100vh - 120px);
+    background: #fff;
+    padding: 40px 40px 10px!important;
 
     .album-info-top {
       display: flex;
       width: 100%;
+      margin-bottom: 15px;
+      box-sizing: border-box;
 
       .left-section {
-        width: 30%;
-        max-width: 250px;
+        max-width: 175px;
 
         img {
           width: 100%;
         }
 
         .playlist-icon{
-          border: 3px solid #282828;
+          border: 3px solid $mediumGray;
           padding: 10px;
         }
       }
 
       .right-section {
-        width: 70%;
-        padding:  5px 0 0 40px;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding:  5px 10px 5px 40px;
 
-        h2 {
-          margin: 0 0 5px 0 !important;
+        .playlist-details {
+          .playlist-name {
+            margin: 0;
+            padding: 0;
+          }
+
+          p {
+            color: $mediumGray;
+            padding: 10px 0;
+          }
         }
 
-        p {
-          color: #909090;
-          padding-bottom: 20px;
+        .button {
+          background: $lightGray;
+          color: $mediumGray;
+          font-weight: bold;
+          letter-spacing: 1px;
+          margin: 5px;
+          padding: 0 10px;
+          border: 2px solid $mediumGray;
+          border-radius: 3px;
+          height: 35px;
+          cursor: pointer;
+
+          &:hover {
+            color: #fff;
+            background: $red;
+            border: 2px solid transparent;
+          }
         }
       }
     }
@@ -49,8 +74,7 @@
     .tracks-container {
       display: flex;
       width: 100%;
-      background-color: #fff;
-      padding: 30px 0;
+      padding: 30px 0 10px 0;
 
       .track-list {
         width: 100%;
@@ -108,7 +132,7 @@
             }
 
             .track-number {
-              color: #909090;
+              color: $mediumGray;
               cursor: pointer;
             }
           }
@@ -123,12 +147,15 @@
 
             .artist-name {
               font-size: 13px;
-              color: #909090;
+              color: $mediumGray;
               padding: 5px 0;
+              cursor: pointer;
             }
           }
 
           .track-options {
+
+
             .fa-ellipsis-h {
               visibility: hidden;
               float: right;

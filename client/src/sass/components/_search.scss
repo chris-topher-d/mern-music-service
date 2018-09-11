@@ -1,25 +1,24 @@
 .search-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
   width: 100%;
-  // height: calc(100vh - 60px);
-  padding-top: 60px;
+  min-height: 100%;
 
   .search-results {
     width: 70%;
+    min-width: 600px;
+    min-height: calc(100vh - 60px);
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #fff;
-    // padding: 15px;
     padding: 15px 40px 10px !important;
-    min-width: 600px;
 
     h2 {
       margin-top: 20px;
     }
 
+    // Tracks
     .tracks-container {
       display: flex;
       width: 100%;
@@ -49,7 +48,10 @@
           padding: 10px 15px;
 
           &:hover {
-            background: #f2f2f2;
+            background: $lightGray;
+            border: 1px solid $mediumGray;
+            margin: -1px -1px 1px -1px;
+            padding: 10px 15px 8px;
 
             .track-count .track-number {
               visibility: hidden;
@@ -60,10 +62,13 @@
             }
 
             .track-options {
-
               .fa-ellipsis-h {
                 visibility: visible;
               }
+            }
+
+            .track-length {
+              padding-right: 13px;
             }
           }
 
@@ -75,6 +80,10 @@
               visibility: hidden;
               position: absolute;
               cursor: pointer;
+
+              &:hover {
+                color: $orange;
+              }
             }
 
             .track-number {
@@ -104,22 +113,25 @@
               visibility: hidden;
               float: right;
               cursor: pointer;
+
+              &:hover ~ .options-menu {
+                display: flex;
+              }
             }
           }
 
           .track-length {
-            color: #909090;
-
-            .duration {
-              float: right;
-              font-size: 15px;
-              padding-right: 15px;
-            }
+            display: flex;
+            justify-content: flex-end;
+            color: $mediumGray;
+            font-size: 15px;
+            padding-right: 15px;
           }
         }
       }
     }
 
+    // Artists
     .artist-results {
       width: 100%;
       padding-bottom: 30px;
@@ -140,7 +152,7 @@
         }
 
         .artist-result-row {
-          margin: 10px 15px;
+          padding: 10px 15px;
           cursor: pointer;
 
           &:hover {
@@ -163,6 +175,7 @@
       }
     }
 
+    // Albums
     .album-results {
       width: 100%;
       padding-bottom: 30px;
@@ -215,6 +228,5 @@
         }
       }
     }
-    // options-menu
   }
 }

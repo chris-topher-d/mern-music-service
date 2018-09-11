@@ -6,6 +6,7 @@ footer {
   position: fixed;
   bottom: 0;
   border-top: 1px solid #909090;
+  z-index: 250;
 
   .controller-bar {
     display: flex;
@@ -23,6 +24,7 @@ footer {
 
       .content {
         display: flex;
+        align-items: center;
         width: 100%;
 
         [role="link"] {

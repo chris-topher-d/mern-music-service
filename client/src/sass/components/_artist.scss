@@ -12,25 +12,54 @@
     min-height: calc(100vh - 60px);
     background-color: #fff;
     padding: 75px 40px 10px !important;
-    min-width: 600px;
+    min-width: 700px;
 
     .artist-header {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px 0;
+      justify-content: space-between;
+      padding: 30px 0 10px;
       width: 100%;
-      border-bottom: 1px solid #909090;
+      border-bottom: 1px solid $mediumGray;
 
       .name {
-        color: orange;
+        color: $orange;
         margin-bottom: 15px;
       }
 
       .header-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $lightGray;
+        color: $mediumGray;
+        margin: 5px;
+        border: 2px solid $mediumGray;
+        border-radius: 3px;
+        width: 100px;
+        height: 35px;
+        cursor: pointer;
 
-        .button {
-          @extend %button-wide;
+        .play {
+          font-weight: bold;
+          letter-spacing: 1px;
+        }
+
+        .fa-play {
+          display: none;
+          color: $green;
+        }
+
+        &:hover {
+          background: none;
+          border: 2px solid $green;
+
+          .play {
+            display: none;
+          }
+
+          .fa-play {
+            display: inline;
+          }
         }
       }
     }
@@ -91,7 +120,10 @@
             padding: 10px 15px;
 
             &:hover {
-              background: #f2f2f2;
+              background: $lightGray;
+              border: 1px solid $mediumGray;
+              margin: -1px -1px 1px -1px;
+              padding: 10px 15px 8px;
 
               .track-count .track-number {
                 visibility: hidden;
@@ -102,7 +134,6 @@
               }
 
               .track-options {
-
                 .fa-ellipsis-h {
                   visibility: visible;
 
@@ -110,6 +141,10 @@
                     display: flex;
                   }
                 }
+              }
+
+              .track-length {
+                padding-right: 13px;
               }
             }
 
@@ -128,7 +163,7 @@
               }
 
               .track-number {
-                color: #909090;
+                color: $mediumGray;
                 cursor: pointer;
               }
             }
@@ -143,7 +178,7 @@
 
               .album-name {
                 font-size: 13px;
-                color: #909090;
+                color: $mediumGray;
                 margin: 5px 0;
               }
             }
@@ -158,13 +193,11 @@
             }
 
             .track-length {
-              color: #909090;
-
-              .duration {
-                float: right;
-                font-size: 15px;
-                padding-right: 15px;
-              }
+              display: flex;
+              justify-content: flex-end;
+              color: $mediumGray;
+              font-size: 15px;
+              padding-right: 15px;
             }
           }
         }
