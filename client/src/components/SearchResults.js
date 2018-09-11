@@ -3,11 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { playSong } from '../actions/controlActions';
-import { loadPlaylist } from '../actions/playlistActions';
+import { loadPlaylist, getPlaylists } from '../actions/playlistActions';
 import { getAlbum, getArtist } from '../actions/actions';
+import Spinner from './common/Spinner';
 import OptionsMenu from './common/OptionsMenu';
 
 class SearchResults extends Component {
+  componentDidMount() {
+    this.props.getPlaylists();
+  }
 
   playSong = (index, content) => {
     this.props.loadPlaylist('search', content);
@@ -24,7 +28,7 @@ class SearchResults extends Component {
 
   render() {
     const playingStyle = {background: '#f2f2f2'};
-    let index, songList, artistList, albumList;
+    let index, songList, artistList, albumList, searchContent;
     this.props.controls.index === null ? index = 0 : index = this.props.controls.index;
 
     // Filter tracks from music.search.tracks
@@ -128,8 +132,14 @@ class SearchResults extends Component {
       albumList = <span className='no-search-results'>No album titles containing <i><strong>{this.props.music.search.searchTerm}</strong></i></span>;
     }
 
-    return (
-      <div className='search-container'>
+    if (this.props.music.loading) {
+      searchContent = (
+        <div className='search-results'>
+          <Spinner />
+        </div>
+      );
+    } else {
+      searchContent = (
         <div className='search-results'>
           <h2>Search Results for <i>{this.props.music.search.searchTerm}</i></h2>
           <div className='tracks-container'>
@@ -153,6 +163,12 @@ class SearchResults extends Component {
             </div>
           </div>
         </div>
+      );
+    }
+
+    return (
+      <div className='search-container'>
+        {searchContent}
       </div>
     );
   }
@@ -170,4 +186,4 @@ const mapStateToProps = state => ({
   controls: state.controls
 });
 
-export default connect(mapStateToProps, { playSong, loadPlaylist, getAlbum, getArtist })(SearchResults);
+export default connect(mapStateToProps, { playSong, loadPlaylist, getPlaylists, getAlbum, getArtist })(SearchResults);
