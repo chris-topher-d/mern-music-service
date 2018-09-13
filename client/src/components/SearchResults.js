@@ -134,7 +134,7 @@ class SearchResults extends Component {
 
     if (this.props.music.loading) {
       searchContent = (
-        <div className='search-results'>
+        <div className='search-results' style={{padding: '0'}}>
           <Spinner />
         </div>
       );

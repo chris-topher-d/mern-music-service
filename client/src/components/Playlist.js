@@ -56,7 +56,7 @@ class Playlist extends Component {
 
     if (this.props.music.loading) {
       playlistContent = (
-        <div className='playlist-info'>
+        <div className='playlist-info' style={{padding: '0'}}>
           <Spinner />
         </div>
       );

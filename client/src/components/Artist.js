@@ -60,7 +60,9 @@ class Artist extends Component {
         </div>
         <div className='track-info'>
           <span className='track-name'>{track.title}</span>
-          <span className='album-name'>{track.album}</span>
+          <Link to='/album'>
+            <span className='album-name' onClick={() => {this.getAlbum(track.album)}}>{track.album}</span>
+          </Link>
         </div>
         <div className='track-options'>
           <i className='fas fa-ellipsis-h'></i>
@@ -74,7 +76,7 @@ class Artist extends Component {
 
     if (this.props.music.loading) {
       artistContent = (
-        <div className='artist-info'>
+        <div className='artist-info' style={{padding: '0'}}>
           <Spinner />
         </div>
       );

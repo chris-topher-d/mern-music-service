@@ -51,7 +51,7 @@ class Album extends Component {
 
     if (this.props.music.loading) {
       albumContent = (
-        <div className='album-info-background'>
+        <div className='album-info-background' style={{padding: '0'}}>
           <Spinner />
         </div>
       );

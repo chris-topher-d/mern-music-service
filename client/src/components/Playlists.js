@@ -43,7 +43,7 @@ class Playlists extends Component {
 
     if (this.props.music.loading) {
       playlistsContent = (
-        <div className='grid-container'>
+        <div className='grid-container' style={{padding: '0'}}>
           <Spinner />
         </div>
       );

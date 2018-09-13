@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getSongs, getAlbum, getArtist } from '../actions/actions';
 import { loadPlaylist, getPlaylists } from '../actions/playlistActions';
 import { playSong } from '../actions/controlActions';
+import Spinner from './common/Spinner';
 import OptionsMenu from './common/OptionsMenu';
 
 class Browse extends Component {
@@ -18,7 +19,7 @@ class Browse extends Component {
   }
 
   play = (index, content) => {
-    this.props.loadPlaylist('songs', content);
+    this.props.loadPlaylist('browse', content);
     this.props.playSong(index);
   }
 
@@ -33,7 +34,7 @@ class Browse extends Component {
   render() {
     const { tracks } = this.props.music.songs;
     const playingStyle = {background: '#f2f2f2'};
-    let index;
+    let index, browseContent;
     this.props.controls.index === 0 ? index = 0 : index = this.props.controls.index;
 
     const trackList = tracks.map((track, idx) => (
@@ -48,7 +49,7 @@ class Browse extends Component {
           style={this.props.currentlyPlaying.tracks[index] !== undefined && this.props.currentlyPlaying.tracks[index].title === track.title ? playingStyle : null}
         >
           <div className='track-info-left'>
-            <div className='play-circle' onClick={() => {this.play(idx, track.artist)}}>
+            <div className='play-circle' onClick={() => {this.play(idx, 'browse')}}>
               <i className='fas fa-play'></i>
             </div>
             <div className='track-details'>
@@ -73,12 +74,24 @@ class Browse extends Component {
       </div>
     ));
 
-    return (
-      <div className='browse-container'>
+    if (this.props.music.loading) {
+      browseContent = (
+        <div className='browse-songs' style={{padding: '0'}}>
+          <Spinner />
+        </div>
+      );
+    } else {
+      browseContent = (
         <div className='browse-songs'>
           <h2>Recommended for you</h2>
           {trackList}
         </div>
+      );
+    }
+
+    return (
+      <div className='browse-container'>
+        {browseContent}
       </div>
     );
   }
