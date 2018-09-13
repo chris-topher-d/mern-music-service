@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { updateIndex, setPlay } from '../actions/controlActions';
+import { updateIndex, setPlay, shufflePlayOrder } from '../actions/controlActions';
 import { getArtist, getAlbum } from '../actions/actions';
 
 class Footer extends Component {
@@ -17,6 +17,7 @@ class Footer extends Component {
       timeRemaining: null,
       songDuration: '',
       shuffle: false,
+      shuffledOrder: [],
       repeat: false,
       muted: false
     }
@@ -116,13 +117,21 @@ class Footer extends Component {
 
   // Forward button
   nextSong = () => {
+    console.log(this.state.track, this.props.controls.index);
     clearInterval(this.timer);
     this.audio.currentTime = 0;
 
-    let trackCount = this.props.controls.index;
+    // let trackCount = this.props.controls.index;
+    let trackCount = this.state.track;
     trackCount < this.props.currentlyPlaying.tracks.length - 1 ? trackCount++ : trackCount = 0;
 
-    this.props.updateIndex(trackCount);
+    if (this.state.shuffle) {
+      this.props.updateIndex(this.props.controls.shuffledOrder[trackCount]);
+      // this.setState({track: this.state.shuffledOrder[trackCount]});
+    } else {
+      this.props.updateIndex(trackCount);
+      // this.setState({track: trackCount});
+    }
 
     this.setState({
       track: trackCount,
@@ -141,9 +150,18 @@ class Footer extends Component {
 
   // Shuffle button
   setShuffle = () => {
-    // console.log('Set Shuffle');
+    let shuffledOrder = [];
+    while (shuffledOrder.length !== this.props.currentlyPlaying.tracks.length) {
+      let index = Math.floor(this.props.currentlyPlaying.tracks.length * Math.random());
+      if (!shuffledOrder.includes(index)) shuffledOrder.push(index);
+    }
+    this.props.shufflePlayOrder(shuffledOrder);
+    console.log(shuffledOrder);
     let shuffleState = this.state.shuffle;
-    this.setState({shuffle: !shuffleState});
+    this.setState({
+      shuffle: !shuffleState,
+      shuffledOrder: shuffledOrder
+    });
   }
 
   // Repeat buton
@@ -324,4 +342,4 @@ const mapStateToProps = state => ({
   controls: state.controls
 });
 
-export default connect(mapStateToProps, { getArtist, getAlbum, updateIndex, setPlay })(Footer);
+export default connect(mapStateToProps, { getArtist, getAlbum, updateIndex, setPlay, shufflePlayOrder })(Footer);

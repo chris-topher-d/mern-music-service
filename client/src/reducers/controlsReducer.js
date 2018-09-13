@@ -1,8 +1,9 @@
-import { PLAY_SONG, UPDATE_INDEX, SET_PLAY } from '../actions/types';
+import { PLAY_SONG, UPDATE_INDEX, SET_PLAY, SHUFFLE_PLAY_ORDER } from '../actions/types';
 
 const initialState = {
   play: false,
-  index: 0
+  index: 0,
+  shuffledOrder: []
 };
 
 export default function(state = initialState, action) {
@@ -23,6 +24,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         play: action.payload
+      };
+
+    case SHUFFLE_PLAY_ORDER:
+      return {
+        ...state,
+        shuffledOrder: action.payload
       };
 
     default:

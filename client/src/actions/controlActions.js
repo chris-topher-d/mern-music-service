@@ -1,4 +1,4 @@
-import { PLAY_SONG, UPDATE_INDEX, SET_PLAY } from './types';
+import { PLAY_SONG, UPDATE_INDEX, SET_PLAY, SHUFFLE_PLAY_ORDER } from './types';
 
 export const playSong = index => dispatch => {
   return (
@@ -24,6 +24,15 @@ export const setPlay = boolean => dispatch => {
     dispatch({
       type: SET_PLAY,
       payload: boolean
+    })
+  );
+}
+
+export const shufflePlayOrder = shuffledOrder => dispatch => {
+  return (
+    dispatch({
+      type: SHUFFLE_PLAY_ORDER,
+      payload: shuffledOrder
     })
   );
 }
