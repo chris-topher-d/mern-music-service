@@ -19,7 +19,7 @@ const createPlaylist = (state, action) => {
         ...state,
         currentlyPlaying: {
           ...state.currentlyPlaying,
-          tracks: state.songs.tracks
+          tracks: state.music.songs.tracks
         }
       };
 
