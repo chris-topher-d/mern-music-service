@@ -1,0 +1,33 @@
+// regular width
+%button {
+  background: transparent;
+  color: #282828;
+  border: 2px solid #282828;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 25px;
+  cursor: pointer;
+
+  &:hover {
+    color: #141414;
+    background: #fff;
+  }
+}
+
+// wide button (100px)
+%button-wide {
+  background: #909090;
+  color: #fff;
+  // border: 2px solid $darkGray;
+  border: none;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 5px;
+  width: 100px;
+  cursor: pointer;
+
+  &:hover {
+    color: #141414;
+    background: $green;
+  }
+}
