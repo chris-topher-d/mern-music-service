@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loadPlaylist } from '../actions/playlistActions';
+import { loadPlaylist, getPlaylists } from '../actions/playlistActions';
 import { playSong } from '../actions/controlActions';
 import Spinner from './common/Spinner';
 import OptionsMenu from './common/OptionsMenu';
 
 class Album extends Component {
+  componentWillMount() {
+    this.props.getPlaylists();
+  }
+
   play = (index, content) => {
     this.props.loadPlaylist('album', content);
     this.props.playSong(index);
@@ -95,4 +99,4 @@ const mapStateToProps = state => ({
   controls: state.controls
 });
 
-export default connect(mapStateToProps, { loadPlaylist, playSong })(Album);
+export default connect(mapStateToProps, { loadPlaylist, getPlaylists, playSong })(Album);

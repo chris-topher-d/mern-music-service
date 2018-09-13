@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getSongs, getAlbum, getArtist } from '../actions/actions';
-import { getPlaylists } from '../actions/playlistActions';
+import { loadPlaylist, getPlaylists } from '../actions/playlistActions';
+import { playSong } from '../actions/controlActions';
 import OptionsMenu from './common/OptionsMenu';
 
 class Browse extends Component {
@@ -14,6 +15,11 @@ class Browse extends Component {
 
   onClick = (songId, album, artist, artwork) => {
     this.props.getAlbum(album, artist, artwork);
+  }
+
+  play = (index, content) => {
+    this.props.loadPlaylist('songs', content);
+    this.props.playSong(index);
   }
 
   getAlbum = album => {
@@ -27,23 +33,23 @@ class Browse extends Component {
   render() {
     const { tracks } = this.props.music.songs;
     const playingStyle = {background: '#f2f2f2'};
-    let index, artistContent;
+    let index;
     this.props.controls.index === 0 ? index = 0 : index = this.props.controls.index;
 
     const trackList = tracks.map((track, idx) => (
       <div className='song-details' key={track._id}>
         <Link to='album'>
           <div className='album-cover' onClick={() => {this.getAlbum(track.album)}}>
-            <img src={track.artwork} />
+            <img src={track.artwork} alt='Album Cover'/>
           </div>
         </Link>
         <div
           className='track-list-row'
-          // style={this.props.currentlyPlaying.tracks[index] !== undefined && this.props.currentlyPlaying.tracks[index].title === track.title ? playingStyle : null}
+          style={this.props.currentlyPlaying.tracks[index] !== undefined && this.props.currentlyPlaying.tracks[index].title === track.title ? playingStyle : null}
         >
           <div className='track-info-left'>
-            <div className='play-circle'>
-              <i className='fas fa-play' onClick={() => {this.play(idx, track.artist)}}></i>
+            <div className='play-circle' onClick={() => {this.play(idx, track.artist)}}>
+              <i className='fas fa-play'></i>
             </div>
             <div className='track-details'>
               <Link to='/album'>
@@ -80,6 +86,7 @@ class Browse extends Component {
 
 Browse.propTypes = {
   music: PropTypes.object.isRequired,
+  currentlyPlaying: PropTypes.object.isRequired,
   controls: PropTypes.object.isRequired,
   getSongs: PropTypes.func.isRequired,
   getAlbum: PropTypes.func.isRequired
@@ -87,7 +94,8 @@ Browse.propTypes = {
 
 const mapStateToProps = state => ({
   music: state.music,
+  currentlyPlaying: state.currentlyPlaying,
   controls: state.controls
 });
 
-export default connect(mapStateToProps, { getSongs, getPlaylists, getAlbum, getArtist })(Browse);
+export default connect(mapStateToProps, { getSongs, loadPlaylist, playSong, getPlaylists, getAlbum, getArtist })(Browse);

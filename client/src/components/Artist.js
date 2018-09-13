@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { loadPlaylist } from '../actions/playlistActions';
+import { loadPlaylist, getPlaylists } from '../actions/playlistActions';
 import { playSong } from '../actions/controlActions';
 import { getAlbum } from '../actions/actions';
 import Spinner from './common/Spinner';
 import OptionsMenu from './common/OptionsMenu';
 
 class Artist extends Component {
+  componentWillMount() {
+    this.props.getPlaylists();
+  }
 
   play = (index, content) => {
     this.props.loadPlaylist('artist', content);
@@ -122,4 +125,4 @@ const mapStateToProps = state => ({
   controls: state.controls
 });
 
-export default connect(mapStateToProps, { loadPlaylist, playSong, getAlbum })(Artist);
+export default connect(mapStateToProps, { loadPlaylist, getPlaylists, playSong, getAlbum })(Artist);
