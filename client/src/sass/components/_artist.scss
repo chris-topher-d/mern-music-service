@@ -13,7 +13,7 @@
     max-width: 1080px;
     min-height: calc(100vh - 60px);
     background-color: #fff;
-    padding: 75px 40px 10px !important;
+    padding: 75px 40px 10px;
 
     .artist-header {
       display: flex;
@@ -180,6 +180,10 @@
                 font-size: 13px;
                 color: $mediumGray;
                 margin: 5px 0;
+
+                &:hover {
+                  color: $darkGray;
+                }
               }
             }
 
