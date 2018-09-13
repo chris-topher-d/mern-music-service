@@ -12,7 +12,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  loading: false,
+  loading: true,
   songs: {
     tracks: []
   },
