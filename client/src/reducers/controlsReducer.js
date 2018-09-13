@@ -3,6 +3,7 @@ import { PLAY_SONG, UPDATE_INDEX, SET_PLAY, SHUFFLE_PLAY_ORDER } from '../action
 const initialState = {
   play: false,
   index: 0,
+  shuffle: false,
   shuffledOrder: []
 };
 
@@ -29,6 +30,7 @@ export default function(state = initialState, action) {
     case SHUFFLE_PLAY_ORDER:
       return {
         ...state,
+        shuffle: !state.shuffle,
         shuffledOrder: action.payload
       };
 
