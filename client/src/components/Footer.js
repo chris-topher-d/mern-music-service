@@ -16,8 +16,6 @@ class Footer extends Component {
       currentTime: 0,
       timeRemaining: null,
       songDuration: '',
-      shuffle: false,
-      shuffledOrder: [],
       repeat: false,
       muted: false
     }
@@ -125,12 +123,10 @@ class Footer extends Component {
     let trackCount = this.state.track;
     trackCount < this.props.currentlyPlaying.tracks.length - 1 ? trackCount++ : trackCount = 0;
 
-    if (this.state.shuffle) {
+    if (this.props.controls.shuffle) {
       this.props.updateIndex(this.props.controls.shuffledOrder[trackCount]);
-      // this.setState({track: this.state.shuffledOrder[trackCount]});
     } else {
       this.props.updateIndex(trackCount);
-      // this.setState({track: trackCount});
     }
 
     this.setState({
@@ -157,11 +153,6 @@ class Footer extends Component {
     }
     this.props.shufflePlayOrder(shuffledOrder);
     console.log(shuffledOrder);
-    let shuffleState = this.state.shuffle;
-    this.setState({
-      shuffle: !shuffleState,
-      shuffledOrder: shuffledOrder
-    });
   }
 
   // Repeat buton
@@ -295,7 +286,7 @@ class Footer extends Component {
             <i className='fas fa-play' title='play' style={!this.state.playing ? null : displayStyle} onClick={this.playSong}></i>
             <i className='fa fa-pause' title='pause' style={this.state.playing ? null : displayStyle} onClick={this.pauseSong}></i>
             <i className='fas fa-step-forward' title='forward' onClick={this.nextSong}></i>
-            <i className='fas fa-random' title='shuffle' style={this.state.shuffle ? activeStyle : null} onClick={this.setShuffle}></i>
+            <i className='fas fa-random' title='shuffle' style={this.props.controls.shuffle ? activeStyle : null} onClick={this.setShuffle}></i>
             <i className='fas fa-redo-alt' title='repeat' style={this.state.repeat ? activeStyle : null} onClick={this.setRepeat}></i>
           </div>
           <div className='playback-bar'>
