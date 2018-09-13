@@ -1,11 +1,11 @@
 footer {
   display: flex;
   justify-content: center;
-  background: #f2f2f2;
+  background: $lightGray;
   width: 100%;
   position: fixed;
   bottom: 0;
-  border-top: 1px solid #909090;
+  border-top: 1px solid $mediumGray;
   z-index: 250;
 
   .controller-bar {
@@ -42,7 +42,7 @@ footer {
           display: flex;
           flex-direction: column;
           justify-content: flex-end;
-          color: #282828;
+          color: $darkGray;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -55,7 +55,11 @@ footer {
 
           .artist {
             font-size: 12px;
-            color: #909090;
+            color: $mediumGray;
+
+            &:hover {
+              color: $darkGray;
+            }
           }
         }
       }
@@ -67,7 +71,7 @@ footer {
       justify-content: center;
       align-items: center;
       font-size: 20px;
-      color: #282828;
+      color: $darkGray;
       cursor: pointer;
 
       & > * {
@@ -87,7 +91,7 @@ footer {
       padding: 5px 15px 5px 0;
 
       .progress-time {
-        color: #282828;
+        color: $darkGray;
         font-size: 15px;
         min-width: 50px;
         text-align: center;
@@ -101,7 +105,7 @@ footer {
         cursor: pointer;
 
         .progress-bar-bg {
-          background: #909090;
+          background: $mediumGray;
           width: 100%;
           height: 1px;
           border-radius: 5px;
@@ -137,13 +141,13 @@ footer {
 
         .fa-volume-up {
           font-size: 20px;
-          color: #282828;
+          color: $darkGray;
           cursor: pointer;
         }
 
         .fa-volume-off {
           font-size: 20px;
-          color: #282828;
+          color: $darkGray;
           padding-right: 7px;
           cursor: pointer;
         }
@@ -157,8 +161,8 @@ footer {
           justify-content: center;
           align-items: center;
           margin-left: 5px;
-          background: #f2f2f2;
-          border: 1px solid #909090;
+          background: $lightGray;
+          border: 1px solid $mediumGray;
           cursor: pointer;
 
           &:hover {
@@ -166,7 +170,7 @@ footer {
           }
 
           .volume-progress-bar-bg {
-            background: #404040;
+            background: $darkGray;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
