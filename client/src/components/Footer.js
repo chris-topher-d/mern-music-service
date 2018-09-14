@@ -95,11 +95,23 @@ class Footer extends Component {
 
     // If song has been playing for less than 5 seconds, play previous song
     } else {
-      let trackCount = this.props.controls.index;
+      let trackCount = this.state.track;
 
       trackCount === 0 ? trackCount = this.props.currentlyPlaying.tracks.length - 1 : trackCount--;
 
-      this.props.updateIndex(trackCount);
+      // If REPEAT is activated
+      if (this.state.repeat) {
+        trackCount = this.props.controls.index;
+        this.props.updateIndex(trackCount);
+      }
+
+      // If SHUFFLE is activated
+      if (this.props.controls.shuffle && !this.state.repeat) {
+        this.props.updateIndex(this.props.controls.shuffledOrder[trackCount]);
+      } else {
+        this.props.updateIndex(trackCount);
+      }
+
       this.audio.currentTime = 0;
 
       this.setState({
@@ -115,7 +127,6 @@ class Footer extends Component {
 
   // Forward button
   nextSong = () => {
-    console.log(this.state.track, this.props.controls.index);
     clearInterval(this.timer);
     this.audio.currentTime = 0;
 
@@ -123,7 +134,14 @@ class Footer extends Component {
     let trackCount = this.state.track;
     trackCount < this.props.currentlyPlaying.tracks.length - 1 ? trackCount++ : trackCount = 0;
 
-    if (this.props.controls.shuffle) {
+    // If REPEAT is activated
+    if (this.state.repeat) {
+      trackCount = this.props.controls.index;
+      this.props.updateIndex(trackCount);
+    }
+
+    // If SHUFFLE is activated
+    if (this.props.controls.shuffle && !this.state.repeat) {
       this.props.updateIndex(this.props.controls.shuffledOrder[trackCount]);
     } else {
       this.props.updateIndex(trackCount);
@@ -152,12 +170,10 @@ class Footer extends Component {
       if (!shuffledOrder.includes(index)) shuffledOrder.push(index);
     }
     this.props.shufflePlayOrder(shuffledOrder);
-    console.log(shuffledOrder);
   }
 
   // Repeat buton
   setRepeat = () => {
-    // console.log('Set Repeat');
     let repeatState = this.state.repeat;
     this.setState({repeat: !repeatState});
   }
