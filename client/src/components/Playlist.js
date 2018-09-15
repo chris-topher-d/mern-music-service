@@ -7,7 +7,7 @@ import { getArtist } from '../actions/actions';
 import { playSong } from '../actions/controlActions';
 import Spinner from './common/Spinner';
 import PlaylistMenu from './common/PlaylistMenu';
-import playlistIcon from '../images/playlist_orange.png';
+import playlistIcon from '../images/playlist-record-lg.jpg';
 
 class Playlist extends Component {
   play = (index, content) => {
