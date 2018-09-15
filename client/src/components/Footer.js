@@ -31,13 +31,15 @@ class Footer extends Component {
     if (this.state.content !== newProps.currentlyPlaying.loaded || this.state.trackId !== newProps.currentlyPlaying.tracks[newProps.controls.index]._id) {
       this.audio.currentTime = 0;
       this.setProgressBar();
-      let duration = this.getSeconds(newProps.currentlyPlaying.tracks[newProps.controls.index].duration);
-      this.setState({
-        content: newProps.currentlyPlaying.loaded,
-        trackId: newProps.currentlyPlaying.tracks[newProps.controls.index]._id,
-        songDuration: duration,
-        timeRemaining: newProps.currentlyPlaying.tracks[newProps.controls.index].duration
-      });
+      if (newProps.currentlyPlaying.tracks.length > 0) {
+        let duration = this.getSeconds(newProps.currentlyPlaying.tracks[newProps.controls.index].duration);
+        this.setState({
+          content: newProps.currentlyPlaying.loaded,
+          trackId: newProps.currentlyPlaying.tracks[newProps.controls.index]._id,
+          songDuration: duration,
+          timeRemaining: newProps.currentlyPlaying.tracks[newProps.controls.index].duration
+        });
+      }
     }
   }
 
