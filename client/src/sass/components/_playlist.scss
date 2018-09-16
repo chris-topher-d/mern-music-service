@@ -19,15 +19,19 @@
       box-sizing: border-box;
 
       .left-section {
-        max-width: 175px;
+        max-width: 200px;
+        // max-height: 200px;
 
         img {
           width: 100%;
+          height: auto;
+          border: 3px solid $mediumGray;
+          padding: 10px;
         }
 
         .playlist-icon{
-          border: 3px solid $mediumGray;
-          padding: 10px;
+          // border: 3px solid $mediumGray;
+          // padding: 10px;
         }
       }
 
@@ -149,6 +153,10 @@
               color: $mediumGray;
               padding: 5px 0;
               cursor: pointer;
+
+              &:hover {
+                color: $darkGray;
+              }
             }
           }
 
