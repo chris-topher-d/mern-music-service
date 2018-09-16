@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { updateIndex, setPlay, shufflePlayOrder } from '../actions/controlActions';
 import { getArtist, getAlbum } from '../actions/actions';
+import defaultArtwork from '../images/playlist-record.jpg';
 
 class Footer extends Component {
   constructor(props) {
@@ -221,15 +222,15 @@ class Footer extends Component {
   }
 
   setVolume = (e) => {
-    let offset, percent = 0;
-    if (e.nativeEvent.layerY < 165 && e.nativeEvent.layerY > 13) {
-
-      offset = this.volumeBar.clientHeight - e.nativeEvent.layerY + 14;
+    let offset = window.innerHeight - e.clientY - 50;
+    let percent = 0;
+    if (offset < 166 && offset > 14) {
+      offset = offset - 15;
       percent = (offset / this.volumeBar.clientHeight) * 100;
-    } else if (e.nativeEvent.layerY < 15) {
-      percent = 100;
-    } else if (e.nativeEvent.layerY > 165) {
+    } else if (offset < 15) {
       percent = 0;
+    } else if (offset > 165) {
+      percent = 100;
     }
     this.audio.volume = percent / 100;
     this.currentVolume.style.height = `${percent}%`;
@@ -249,7 +250,8 @@ class Footer extends Component {
   render() {
     const displayStyle = {display: 'none'};
     const activeStyle = {color: 'orange'};
-    let timeElapsed, timeRemaining;
+    let timeElapsed = '0:00';
+    let timeRemaining;
     if (this.props.currentlyPlaying.loaded) {
       timeElapsed = this.formatTime(this.audio.currentTime);
       timeRemaining = this.formatTime(this.state.songDuration - this.audio.currentTime);
@@ -267,7 +269,7 @@ class Footer extends Component {
             <div className='content'>
               <Link to='/album'>
                 <img
-                  src={this.props.currentlyPlaying.tracks.length > 0 ? this.props.currentlyPlaying.tracks[this.props.controls.index].artwork : null}
+                  src={this.props.currentlyPlaying.tracks.length > 0 ? this.props.currentlyPlaying.tracks[this.props.controls.index].artwork : defaultArtwork}
                   alt='album cover'
                   className='album-cover'
                   role='link'
@@ -283,7 +285,7 @@ class Footer extends Component {
                     tabIndex='0'
                     onClick={() => {this.getAlbum(this.props.currentlyPlaying.tracks[this.props.controls.index].album)}}
                   >
-                    {this.props.currentlyPlaying.tracks.length > 0 ? this.props.currentlyPlaying.tracks[this.props.controls.index].title : null}
+                    {this.props.currentlyPlaying.tracks.length > 0 ? this.props.currentlyPlaying.tracks[this.props.controls.index].title : 'Songify'}
                   </span>
                 </Link>
                 <Link to='/artist'>
