@@ -9,7 +9,6 @@ const Song = require('../../models/Song');
 // @desc   Get query matches
 // @access Public
 router.get('/:query', (req, res) => {
-  console.log(req.params.query);
   Song.find({ $or: [ { artist: { $regex: req.params.query, $options: 'i' } }, { title: { $regex: req.params.query, $options: 'i' } }, { album: { $regex: req.params.query, $options: 'i' } }]})
     .then(results => res.json(results))
     .catch(err => res.status(404).json({noitemsfound: 'No items found matching search criteria'}));
