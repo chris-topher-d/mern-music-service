@@ -302,18 +302,18 @@ class Footer extends Component {
             </div>
           </div>
           <div className='control-buttons'>
-            <i className='fas fa-step-backward' title='backward' onClick={this.previousSong}></i>
-            <i className='fas fa-play' title='play' style={!this.state.playing ? null : displayStyle} onClick={this.playSong}></i>
+            <i className='fas fa-step-backward' title='backward' onClick={this.props.currentlyPlaying.loaded !== null ? this.previousSong : null}></i>
+            <i className='fas fa-play' title='play' style={!this.state.playing ? null : displayStyle} onClick={this.props.currentlyPlaying.loaded !== null ? this.playSong : null}></i>
             <i className='fa fa-pause' title='pause' style={this.state.playing ? null : displayStyle} onClick={this.pauseSong}></i>
-            <i className='fas fa-step-forward' title='forward' onClick={this.nextSong}></i>
-            <i className='fas fa-random' title='shuffle' style={this.props.controls.shuffle ? activeStyle : null} onClick={this.setShuffle}></i>
-            <i className='fas fa-redo-alt' title='repeat' style={this.state.repeat ? activeStyle : null} onClick={this.setRepeat}></i>
+            <i className='fas fa-step-forward' title='forward' onClick={this.props.currentlyPlaying.loaded !== null ? this.nextSong : null}></i>
+            <i className='fas fa-random' title='shuffle' style={this.props.controls.shuffle ? activeStyle : null} onClick={this.props.currentlyPlaying.loaded !== null ? this.setShuffle : null}></i>
+            <i className='fas fa-redo-alt' title='repeat' style={this.state.repeat ? activeStyle : null} onClick={this.props.currentlyPlaying.loaded !== null ? this.setRepeat : null}></i>
           </div>
           <div className='playback-bar'>
             <span className='progress-time current'>{timeElapsed}</span>
             <div
               className='progress-bar'
-              onClick={this.findPoint}
+              onClick={this.props.currentlyPlaying.loaded !== null ? this.findPoint : null}
               ref={ trackLength => {this.trackLength = trackLength}}
             >
               <div className='progress-bar-bg'>
