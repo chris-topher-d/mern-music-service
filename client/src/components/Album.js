@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { loadPlaylist, getPlaylists } from '../actions/playlistActions';
+import { getArtist } from '../actions/actions';
 import { playSong } from '../actions/controlActions';
 import Spinner from './common/Spinner';
 import OptionsMenu from './common/OptionsMenu';
@@ -14,6 +16,10 @@ class Album extends Component {
   play = (index, content) => {
     this.props.loadPlaylist('album', content);
     this.props.playSong(index);
+  }
+
+  getArtist = artist => {
+    this.props.getArtist(artist);
   }
 
   render() {
@@ -64,7 +70,11 @@ class Album extends Component {
             </div>
             <div className='right-section'>
               <h2>{albumInfo.album}</h2>
-              <p>by {albumInfo.artist}</p>
+              <p>by
+                <Link to='/artist'>
+                  <span onClick={() => {this.getArtist(albumInfo.artist)}}> {albumInfo.artist}</span>
+                </Link>
+              </p>
               <p>{tracks.length > 1 ? `${tracks.length} tracks available` : `${tracks.length} track available`}</p>
             </div>
           </div>
@@ -79,7 +89,7 @@ class Album extends Component {
 
     return(
       <div className='album-container'>
-        {albumContent}
+        {this.props.currentlyPlaying.loaded !== null ? albumContent : window.location.href='/'}
       </div>
     );
   }
@@ -99,4 +109,4 @@ const mapStateToProps = state => ({
   controls: state.controls
 });
 
-export default connect(mapStateToProps, { loadPlaylist, getPlaylists, playSong })(Album);
+export default connect(mapStateToProps, { loadPlaylist, getPlaylists, playSong, getArtist })(Album);
