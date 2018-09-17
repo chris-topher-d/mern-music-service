@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -11,6 +11,7 @@ import Search from './components/SearchResults';
 import Playlists from './components/Playlists';
 import Playlist from './components/Playlist';
 import Footer from './components/Footer';
+import DatabaseError from './components/common/DatabaseError';
 import './sass/main.css';
 
 class App extends Component {
@@ -18,7 +19,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="app">
+          <div className='app'>
             <Header />
             <Switch>
               <Route exact path={'/'} component={Browse} />
@@ -27,6 +28,8 @@ class App extends Component {
               <Route exact path={'/search'} component={Search} />
               <Route exact path={'/playlists'} component={Playlists} />
               <Route exact path={'/playlists/:playlist'} component={Playlist} />
+              <Route exact path={'/error'} component={DatabaseError} />
+              <Redirect to='/' />
             </Switch>
             <Footer />
           </div>
