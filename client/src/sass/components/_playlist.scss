@@ -19,19 +19,11 @@
       box-sizing: border-box;
 
       .left-section {
-        max-width: 200px;
-        // max-height: 200px;
-
         img {
-          width: 100%;
-          height: auto;
+          height: 200px;
+          width: 200px;
           border: 3px solid $mediumGray;
           padding: 10px;
-        }
-
-        .playlist-icon{
-          // border: 3px solid $mediumGray;
-          // padding: 10px;
         }
       }
 
@@ -105,7 +97,6 @@
             }
 
             .track-options {
-
               .fa-ellipsis-h {
                 visibility: visible;
 
@@ -161,8 +152,6 @@
           }
 
           .track-options {
-
-
             .fa-ellipsis-h {
               visibility: hidden;
               float: right;

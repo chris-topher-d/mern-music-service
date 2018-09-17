@@ -1,0 +1,39 @@
+.error-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    min-width: 700px;
+    max-width: 1080px;
+    min-height: calc(100vh - 60px);
+    background-color: #fff;
+    padding: 100px 40px 10px;
+
+    h1 {
+      color: $mediumGray;
+      margin-bottom: 25px;
+    }
+
+    button {
+      color: $red;
+      background: none;
+      font-size: 20px;
+      padding: 5px 15px;
+      border: 2px solid $red;
+      border-radius: 100px;
+      margin-top: 10px;
+      cursor: pointer;
+
+      &:hover {
+        background: $red;
+        color: #fff;
+      }
+    }
+  }
+}

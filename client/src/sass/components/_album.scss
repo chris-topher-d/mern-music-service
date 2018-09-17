@@ -43,6 +43,10 @@
         p {
           color: #909090;
           padding-bottom: 20px;
+
+          span:hover {
+            color: $darkGray;
+          }
         }
       }
     }
@@ -79,7 +83,6 @@
             }
 
             .track-options {
-
               .fa-ellipsis-h {
                 visibility: visible;
 
