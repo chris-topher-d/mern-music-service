@@ -17,12 +17,13 @@ export const getSongs = () => dispatch => {
         payload: res.data
       })
     )
-    .catch(err =>
+    .catch(err => {
+      window.location.href='/error';
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
-    );
+    });
 }
 
 // Get album songs
@@ -36,12 +37,13 @@ export const getAlbum = (album, artist, artwork) => dispatch => {
         payload: res.data
       })
     )
-    .catch(err =>
+    .catch(err => {
+      window.location.href='/error';
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
-    );
+    });
 }
 
 // Get albums and songs by artist
@@ -54,12 +56,13 @@ export const getArtist = artist => dispatch => {
         payload: res.data
       })
     )
-    .catch(err =>
+    .catch(err => {
+      window.location.href='/error';
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
-    );
+    });
 }
 
 // Search DB for matching terms

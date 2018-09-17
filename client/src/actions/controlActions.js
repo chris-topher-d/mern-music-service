@@ -1,4 +1,4 @@
-import { PLAY_SONG, UPDATE_INDEX, SET_PLAY, SHUFFLE_PLAY_ORDER, REPEAT_SONG } from './types';
+import { PLAY_SONG, UPDATE_INDEX, SET_PLAY, SHUFFLE_PLAY_ORDER } from './types';
 
 export const playSong = index => dispatch => {
   return (
