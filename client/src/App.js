@@ -28,7 +28,7 @@ class App extends Component {
               <Route exact path={'/search'} component={Search} />
               <Route exact path={'/playlists'} component={Playlists} />
               <Route exact path={'/playlists/:playlist'} component={Playlist} />
-              <Route exact path={'/error'} component={DatabaseError} />
+              <Route exact path={'/oops'} component={DatabaseError} />
               <Redirect to='/' />
             </Switch>
             <Footer />
