@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { loadPlaylist, deletePlaylist } from '../actions/playlistActions';
 import { getArtist } from '../actions/actions';
 import { playSong } from '../actions/controlActions';
@@ -10,6 +10,10 @@ import PlaylistMenu from './common/PlaylistMenu';
 import playlistIcon from '../images/playlist-record-lg.jpg';
 
 class Playlist extends Component {
+  componentWillMount() {
+    if (this.props.music.playlists.length === 0) window.location.href='/playlists';
+  }
+
   play = (index, content) => {
     this.props.loadPlaylist('playlist', content);
     this.props.playSong(index);
@@ -108,4 +112,4 @@ const mapStateToProps = state => ({
   controls: state.controls
 });
 
-export default connect(mapStateToProps, { loadPlaylist, deletePlaylist, getArtist, playSong })(Playlist);
+export default connect(mapStateToProps, { loadPlaylist, deletePlaylist, getArtist, playSong })(withRouter(Playlist));
