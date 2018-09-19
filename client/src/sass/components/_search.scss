@@ -49,9 +49,9 @@
 
           &:hover {
             background: $lightGray;
-            border: 1px solid $mediumGray;
+            outline: 1px solid $mediumGray;
             margin: -1px -1px 1px -1px;
-            padding: 10px 15px 8px;
+            padding: 11px 15px 9px;
 
             .track-count .track-number {
               visibility: hidden;
@@ -70,11 +70,20 @@
             .track-length {
               padding-right: 13px;
             }
+
+            .track-info {
+              padding-left: 1px;
+            }
+
+            .track-length {
+              padding-right: 14px;
+            }
           }
 
           .track-count {
+            box-sizing: border-box;
             font-size: 15px;
-            padding-right: 10px;
+            width: 50px;
 
             .fa-play {
               visibility: hidden;
@@ -94,6 +103,7 @@
 
           .track-info {
             display: flex;
+            box-sizing: border-box;
             flex-direction: column;
 
             .track-name {
@@ -102,8 +112,12 @@
 
             .artist-name {
               font-size: 13px;
-              color: #909090;
+              color: $mediumGray;
               margin: 5px 0;
+
+              &:hover {
+                color: $darkGray;
+              }
             }
           }
 

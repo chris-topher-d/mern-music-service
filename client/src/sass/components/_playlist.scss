@@ -84,9 +84,9 @@
 
           &:hover {
             background: $lightGray;
-            border: 1px solid $mediumGray;
+            outline: 1px solid $mediumGray;
             margin: -1px -1px 1px -1px;
-            padding: 10px 15px 8px;
+            padding: 11px 15px 9px;
 
             .track-count .track-number {
               visibility: hidden;
@@ -106,8 +106,12 @@
               }
             }
 
+            .track-info {
+              padding-left: 1px;
+            }
+
             .track-length {
-              padding-right: 13px;
+              padding-right: 14px;
             }
           }
 
