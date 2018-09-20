@@ -12,7 +12,7 @@ import Playlists from './components/Playlists';
 import Playlist from './components/Playlist';
 import Footer from './components/Footer';
 import DatabaseError from './components/common/DatabaseError';
-import './sass/main.css';
+import './main.css';
 
 class App extends Component {
   render() {
