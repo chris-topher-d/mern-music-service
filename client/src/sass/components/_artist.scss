@@ -47,11 +47,11 @@
 
         .fa-play {
           display: none;
-          color: $green;
+          color: $orange;
         }
 
         &:hover {
-          border: 2px solid $green;
+          border: 2px solid $orange;
 
           .play {
             display: none;
