@@ -109,7 +109,7 @@ class Artist extends Component {
 
     return (
       <div className='artist-container'>
-        {artistContent}
+        {this.props.currentlyPlaying.loaded !== null ? artistContent : window.location.href='/'}
       </div>
     );
   }

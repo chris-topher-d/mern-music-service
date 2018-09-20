@@ -13,7 +13,6 @@ class Footer extends Component {
       content: '',
       trackId: 0,
       playing: false,
-      track: 0,
       currentTime: 0,
       timeRemaining: null,
       songDuration: '',
@@ -25,6 +24,7 @@ class Footer extends Component {
   componentDidUpdate() {
     // Update progress bar when searching through song
     this.setProgressBar();
+    // When a song is played from a new this.props.music source while state.playing is false
     if (this.props.controls.play && !this.state.playing) this.playSong();
   }
 
@@ -49,7 +49,7 @@ class Footer extends Component {
     let currentTime = time;
 
     this.timer = setInterval(() => {
-        if (Math.floor(this.audio.currentTime) === Math.floor(this.audio.duration)) this.nextSong();
+        if (Math.floor(this.audio.currentTime) >= Math.floor(this.audio.duration)) this.nextSong();
         currentTime++;
         this.setState({
           currentTime: currentTime,
@@ -60,12 +60,12 @@ class Footer extends Component {
 
   // Play button
   playSong = () => {
-    // clearInterval(this.timer);
     this.setTimer(this.state.currentTime);
     this.setState({
       playing: true,
       timeRemaining: this.formatTime(this.audio.duration - this.audio.currentTime)
     });
+
     if (!this.props.controls.play) {
       this.props.setPlay(true);
       this.audio.play();
@@ -74,8 +74,8 @@ class Footer extends Component {
 
   // Pause button
   pauseSong = () => {
-    this.setState({playing: false});
     clearInterval(this.timer);
+    this.setState({playing: false});
     this.props.setPlay(false);
     this.audio.pause();
   }
@@ -83,7 +83,6 @@ class Footer extends Component {
   // Back button
   previousSong = () => {
     clearInterval(this.timer);
-    // this.audio.currentTime = 0;
 
     // If the song has been playing for 5 seconds or more, restart the song
     if (this.audio.currentTime > 4) {
@@ -91,6 +90,7 @@ class Footer extends Component {
         currentTime: 0,
         timeRemaining: this.formatTime(this.audio.duration - this.audio.currentTime)
       });
+
       this.audio.currentTime = 0;
 
       // If music was already playing, continue to play
@@ -98,9 +98,7 @@ class Footer extends Component {
 
     // If song has been playing for less than 5 seconds, play previous song
     } else {
-      let trackCount = this.state.track;
-
-      trackCount === 0 ? trackCount = this.props.currentlyPlaying.tracks.length - 1 : trackCount--;
+      let trackCount = this.props.controls.index;
 
       // If REPEAT is activated
       if (this.state.repeat) {
@@ -110,15 +108,23 @@ class Footer extends Component {
 
       // If SHUFFLE is activated
       if (this.props.controls.shuffle && !this.state.repeat) {
+        if (this.props.controls.shuffledOrder.indexOf(this.props.controls.index) === 0) {
+          trackCount = this.props.currentlyPlaying.tracks.length - 1;
+        } else {
+          trackCount = this.props.controls.shuffledOrder.indexOf(this.props.controls.index) - 1;
+        }
         this.props.updateIndex(this.props.controls.shuffledOrder[trackCount]);
-      } else {
+      }
+
+      // NO SHUFFLE or REPEAT
+      if (!this.props.controls.shuffle && !this.state.repeat){
+        trackCount > 0 ? trackCount-- : trackCount = this.props.currentlyPlaying.tracks.length - 1;
         this.props.updateIndex(trackCount);
       }
 
       this.audio.currentTime = 0;
 
       this.setState({
-        track: trackCount,
         currentTime: 0,
         timeRemaining: this.formatTime(this.audio.duration - this.audio.currentTime)
       });
@@ -132,10 +138,7 @@ class Footer extends Component {
   nextSong = () => {
     clearInterval(this.timer);
     this.audio.currentTime = 0;
-
-    // let trackCount = this.props.controls.index;
-    let trackCount = this.state.track;
-    trackCount < this.props.currentlyPlaying.tracks.length - 1 ? trackCount++ : trackCount = 0;
+    let trackCount = this.props.controls.index;
 
     // If REPEAT is activated
     if (this.state.repeat) {
@@ -145,13 +148,21 @@ class Footer extends Component {
 
     // If SHUFFLE is activated
     if (this.props.controls.shuffle && !this.state.repeat) {
+      if (this.props.controls.shuffledOrder.indexOf(this.props.controls.index) === this.props.currentlyPlaying.tracks.length - 1) {
+        trackCount = 0;
+      } else {
+        trackCount = this.props.controls.shuffledOrder.indexOf(this.props.controls.index) + 1;
+      }
       this.props.updateIndex(this.props.controls.shuffledOrder[trackCount]);
-    } else {
+    }
+
+    // NO SHUFFLE or REPEAT
+    if (!this.props.controls.shuffle && !this.state.repeat){
+      trackCount < this.props.currentlyPlaying.tracks.length - 1 ? trackCount++ : trackCount = 0;
       this.props.updateIndex(trackCount);
     }
 
     this.setState({
-      track: trackCount,
       currentTime: 0,
       timeRemaining: this.props.currentlyPlaying.tracks[this.props.controls.index].duration
     });
@@ -302,12 +313,40 @@ class Footer extends Component {
             </div>
           </div>
           <div className='control-buttons'>
-            <i className='fas fa-step-backward' title='backward' onClick={this.props.currentlyPlaying.loaded !== null ? this.previousSong : null}></i>
-            <i className='fas fa-play' title='play' style={!this.state.playing ? null : displayStyle} onClick={this.props.currentlyPlaying.loaded !== null ? this.playSong : null}></i>
-            <i className='fa fa-pause' title='pause' style={this.state.playing ? null : displayStyle} onClick={this.pauseSong}></i>
-            <i className='fas fa-step-forward' title='forward' onClick={this.props.currentlyPlaying.loaded !== null ? this.nextSong : null}></i>
-            <i className='fas fa-random' title='shuffle' style={this.props.controls.shuffle ? activeStyle : null} onClick={this.props.currentlyPlaying.loaded !== null ? this.setShuffle : null}></i>
-            <i className='fas fa-redo-alt' title='repeat' style={this.state.repeat ? activeStyle : null} onClick={this.props.currentlyPlaying.loaded !== null ? this.setRepeat : null}></i>
+            <i
+              className='fas fa-step-backward'
+              title='backward'
+              onClick={this.props.currentlyPlaying.loaded !== null ? this.previousSong : null}
+            ></i>
+            <i
+              className='fas fa-play'
+              title='play'
+              style={!this.state.playing ? null : displayStyle}
+              onClick={this.props.currentlyPlaying.loaded !== null ? this.playSong : null}
+            ></i>
+            <i
+              className='fa fa-pause'
+              title='pause'
+              style={this.state.playing ? null : displayStyle}
+              onClick={this.pauseSong}
+            ></i>
+            <i
+              className='fas fa-step-forward'
+              title='forward'
+              onClick={this.props.currentlyPlaying.loaded !== null ? this.nextSong : null}
+            ></i>
+            <i
+              className='fas fa-random'
+              title='shuffle'
+              style={this.props.controls.shuffle ? activeStyle : null}
+              onClick={this.props.currentlyPlaying.loaded !== null ? this.setShuffle : null}
+            ></i>
+            <i
+              className='fas fa-redo-alt'
+              title='repeat'
+              style={this.state.repeat ? activeStyle : null}
+              onClick={this.props.currentlyPlaying.loaded !== null ? this.setRepeat : null}
+            ></i>
           </div>
           <div className='playback-bar'>
             <span className='progress-time current'>{timeElapsed}</span>
@@ -326,11 +365,25 @@ class Footer extends Component {
           </div>
           <div className='volume-control'>
             <div className='volume-bar'>
-              <i className='fas fa-volume-up' title='volume' style={!this.state.muted ? null : displayStyle} onClick={this.setMute}></i>
-              <i className='fas fa-volume-off' title='volume muted' style={this.state.muted ? null : displayStyle } onClick={this.setMute}></i>
+              <i
+                className='fas fa-volume-up'
+                title='volume'
+                style={!this.state.muted ? null : displayStyle}
+                onClick={this.setMute}
+              ></i>
+              <i
+                className='fas fa-volume-off'
+                title='volume muted'
+                style={this.state.muted ? null : displayStyle }
+                onClick={this.setMute}
+              ></i>
               <div className='volume-progress-bar' onClick={this.setVolume}>
                 <div className='volume-progress-bar-bg' ref={ volumeBar => {this.volumeBar = volumeBar}}>
-                  <div className='volume-progress' style={{height: '100%'}} ref={ currentVolume => {this.currentVolume = currentVolume}}></div>
+                  <div
+                    className='volume-progress'
+                    style={{height: '100%'}}
+                    ref={ currentVolume => {this.currentVolume = currentVolume}}
+                  ></div>
                 </div>
               </div>
             </div>
