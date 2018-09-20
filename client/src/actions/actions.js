@@ -18,7 +18,7 @@ export const getSongs = () => dispatch => {
       })
     )
     .catch(err => {
-      window.location.href='/error';
+      window.location.href='/oops';
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
@@ -38,7 +38,7 @@ export const getAlbum = (album, artist, artwork) => dispatch => {
       })
     )
     .catch(err => {
-      window.location.href='/error';
+      window.location.href='/oops';
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
@@ -57,7 +57,7 @@ export const getArtist = artist => dispatch => {
       })
     )
     .catch(err => {
-      window.location.href='/error';
+      window.location.href='/oops';
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
