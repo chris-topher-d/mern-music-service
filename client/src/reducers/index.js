@@ -46,7 +46,9 @@ const createPlaylist = (state, action) => {
           ...state,
           currentlyPlaying: {
             ...state.currentlyPlaying,
-            tracks: state.music.search.tracks
+            tracks: state.music.search.tracks.filter(track =>
+              track.title.toLowerCase().includes(state.music.search.searchTerm.toLowerCase())
+            )
           }
         };
 
