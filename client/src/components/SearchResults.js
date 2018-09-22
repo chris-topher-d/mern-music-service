@@ -75,9 +75,11 @@ class SearchResults extends Component {
             <span className='track-number'>{idx + 1}</span>
           </div>
           <div className='track-info'>
-            <span className='track-name'>{track.title}</span>
+            <Link to='/album'>
+              <span className='track-name' onClick={() => {this.getAlbum(track.album)}}>{track.title}</span>
+            </Link>
             <Link to ='/artist'>
-              <span className='artist-name' onClick={() => {this.getArtist(this.props.currentlyPlaying.tracks[this.props.controls.index].artist)}}>{track.artist}</span>
+              <span className='artist-name' onClick={() => {this.getArtist(track.artist)}}>{track.artist}</span>
             </Link>
           </div>
           <div className='track-options'>
