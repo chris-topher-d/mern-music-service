@@ -108,6 +108,10 @@
 
             .track-name {
               font-size: 15px;
+
+              &:hover {
+                color: $bgBlue;
+              }
             }
 
             .artist-name {
