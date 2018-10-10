@@ -290,6 +290,8 @@ footer {
     min-height: calc(100vh - 60px);
     background-color: #fff;
     padding: 100px 40px 40px 40px; }
+    .browse-container .browse-songs h1 {
+      color: #000; }
     .browse-container .browse-songs h2 {
       margin-bottom: 40px; }
     .browse-container .browse-songs .song-details {
