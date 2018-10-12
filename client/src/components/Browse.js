@@ -75,19 +75,10 @@ class Browse extends Component {
     ));
 
 
-    if (this.props.music.loading && this.props.currentlyPlaying.loaded === null) {
+    if (this.props.music.loading) {
       browseContent = (
         <div className='browse-songs' style={{padding: '0'}}>
-          <div id='heroku-load' style={{marginBottom: '25px'}}>
-            <h1>Heroku is waking the app. This might take a few moments.</h1>
-          </div>
-          <Spinner />
-        </div>
-      );
-    } else if (this.props.music.loading) {
-      browseContent = (
-        <div className='browse-songs' style={{padding: '0'}}>
-          <Spinner />
+          <Spinner currentlyLoaded={this.props.currentlyPlaying.loaded}/>
         </div>
       );
     } else {
