@@ -4,7 +4,7 @@ import spinner from './spinner.gif';
 const herokuLoad = (
   <div id='heroku-load' style={{textAlign: 'center'}}>
     <h1>Heroku is waking the app.</h1>
-    <h1>This might take a few moments.</h1>
+    <h1>This may take a few moments.</h1>
   </div>
 );
 
