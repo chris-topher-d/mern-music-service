@@ -9,6 +9,7 @@ const herokuLoad = (
 );
 
 const Spinner = ({currentlyLoaded}) => {
+  // For Heroku when the app is waking
   if (currentlyLoaded === null) {
     return (
       <div className='spinner'>
