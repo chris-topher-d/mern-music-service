@@ -73,8 +73,11 @@ Header.propTypes = {
   music: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  music: state.music
-});
+const mapStateToProps = state => {
+  console.log('test');
+  return {
+    music: state.music
+  }
+};
 
 export default connect(mapStateToProps, { searchFor })(withRouter(Header));
