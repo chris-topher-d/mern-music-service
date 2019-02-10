@@ -1,6 +1,6 @@
-## MERN Stack Music Service
+Try the MERN music app [here](https://mysterious-cove-62122.herokuapp.com/).
 
-Built with React and styled with SCSS.
+# MERN Stack Music Service
 
 - The API is built with Node and Express.
 - Music information is managed with MongoDB.
@@ -11,4 +11,35 @@ Built with React and styled with SCSS.
 - Build and delete personal playlists.
 - Play, pause, scan, repeat and shuffle songs.
 
-Try the MERN music app [here](https://mysterious-cove-62122.herokuapp.com/).
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+You will need `node` and `npm` installed globally on your machine.
+
+### Installation and Setup Instructions
+
+Clone this repository.
+
+Installation:
+
+`npm install`
+
+To Start Server:
+
+`npm start`  
+
+To Visit App:
+
+Go to `localhost:3000' in your browser.
+
+## Built With
+
+* [React](https://reactjs.org/)
+* [Redux](https://redux.js.org/)
+* [Node](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
+* [MongoDB](https://www.mongodb.com/)
+* [Sass](https://sass-lang.com/)
